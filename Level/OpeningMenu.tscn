@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/OpeningMenu.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 1 )
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_top = 1.0
+margin_right = 1021.0
+margin_bottom = 597.0
+color = Color( 0.137255, 0.203922, 0.564706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 212.0
+margin_top = 33.0
+margin_right = 792.0
+margin_bottom = 94.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+text = "Placeholder Name for Game
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConnectScreen" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Host_Button" type="Button" parent="ConnectScreen"]
+margin_left = 335.0
+margin_top = 186.0
+margin_right = 635.0
+margin_bottom = 236.0
+custom_fonts/font = SubResource( 2 )
+text = "Host Server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Connect_Button" type="Button" parent="ConnectScreen"]
+margin_left = 507.0
+margin_top = 277.0
+margin_right = 807.0
+margin_bottom = 327.0
+custom_fonts/font = SubResource( 2 )
+text = "Connect"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ip_Input" type="LineEdit" parent="ConnectScreen"]
+margin_left = 196.0
+margin_top = 278.0
+margin_right = 496.0
+margin_bottom = 328.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="Sprite" parent="."]
+position = Vector2( 919, 80 )
+scale = Vector2( 1.94792, 1.76623 )
+texture = ExtResource( 2 )
+[connection signal="pressed" from="ConnectScreen/Host_Button" to="." method="_on_Host_Button_pressed"]
+[connection signal="pressed" from="ConnectScreen/Connect_Button" to="." method="_on_Connect_Button_pressed"]

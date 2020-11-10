@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="gamejam_Nov_2020"
 config/icon="res://icon.png"
 
+[autoload]
+
+MultiplayerManager="*res://Multiplayer/MultiplayerManage.tscn"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
