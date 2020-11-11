@@ -8,7 +8,7 @@ extends KinematicBody2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.in_world.append(self)
-	print(MultiplayerManager.in_world.size())
+	#print(MultiplayerManager.in_world.size())
 	pass # Replace with function body.
 
 func _dispose():
