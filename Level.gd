@@ -39,7 +39,7 @@ func generateInitialTiles():
 		tiles[i] = []
 		for j in range(levelHeight):
 			tiles[i].append([])
-			var tileval = int(floor((noise.get_noise_2d(i * 2, j / 2) + 1.0) / 2.0 * 3.0))
+			var tileval = bias(int(round((noise.get_noise_2d(i * 2, j) + 1.0) * 4.0)))
 			tiles[i][j] = tileval
 			tilemap.set_cell(i, j, tileval)
 
@@ -49,15 +49,26 @@ func newColumn():
 			tiles[i][j] = tiles[i + 1][j]
 			tilemap.set_cell(i, j, tiles[i][j])
 	for j in range(levelHeight):
-		var tileval = int(floor((noise.get_noise_2d(cellsPassed * 2, j / 2) + 1.0) / 2.0 * 3.0))
+		var tileval = bias(int(round((noise.get_noise_2d(cellsPassed * 2, j) + 1.0) * 4.0)))
 		tiles[levelWidth - 1][j] = tileval
 		tilemap.set_cell(levelWidth - 1, j, tileval)
-		# print(tileval)
+		#print(tileval)
 	cellsPassed += 1
 
 func initNoise():
-	noise.seed = randi()
-	noise.lacunarity = 3.0
-	noise.octaves = 2
-	noise.period = 20.0
+	var randgen = RandomNumberGenerator.new()
+	randgen.randomize()
+	noise.seed = randgen.randi()
+	noise.lacunarity = 2.0
+	noise.octaves = 3
+	noise.period = 13.0
 	noise.persistence = 0.8
+
+func bias(val):
+	print(val)
+	if val <= 3:
+		return 0
+	elif val <= 5:
+		return 1
+	elif val <= 8:
+		return 2
