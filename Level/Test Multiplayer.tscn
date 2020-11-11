@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Test Multiplayer.gd" type="Script" id=2]
 [ext_resource path="res://Entities/Beta.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Tree.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Entities/Lantern.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -40,3 +41,6 @@ position = Vector2( 633.164, 264.836 )
 
 [node name="KinematicBody7" parent="." instance=ExtResource( 4 )]
 position = Vector2( 642.073, 314.726 )
+
+[node name="Lantern" parent="." instance=ExtResource( 5 )]
+position = Vector2( 859.041, 251.912 )
