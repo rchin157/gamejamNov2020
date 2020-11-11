@@ -4,12 +4,15 @@ extends "res://Scripts/LevelEntity.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var focus = null;
+var tooltime = 50;
 var velocity = Vector2.ZERO;
 var speed = 800;
 var local = true;
 enum directions {UP, DOWN, LEFT, RIGHT}
 var facing = directions.DOWN;
 var interact_collide;
+var acting = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +29,10 @@ func _process(delta):
 		if(velocity.length()>0):
 			move_and_slide(velocity)
 			MultiplayerManager.rpc("update_player_pos",get_position().x,get_position().y)
+		check_acting()
+	pass
+
+func check_acting():
 	pass
 
 func calculate_dir(dir: Vector2):
@@ -68,3 +75,14 @@ func set_local(set: bool):
 func get_direction()-> Vector2:
 	return Vector2(Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left"),
 	Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up"))
+
+#This runs when something is in the interactable range
+func _on_Area2D_body_entered(body):
+	focus = body;
+	pass # Replace with function body.
+
+
+func _on_Area2D_body_exited(body):
+	if(body == focus):
+		focus = null
+	pass # Replace with function body.

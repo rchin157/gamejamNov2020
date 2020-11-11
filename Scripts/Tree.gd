@@ -8,6 +8,7 @@ extends "res://Scripts/LevelEntity.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	type = types.TREE;
 	pass # Replace with function body.
 
 
