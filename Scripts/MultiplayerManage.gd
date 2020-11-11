@@ -9,6 +9,7 @@ var id;
 var port = 25565;
 var is_server = false;
 var openingMenu;
+var listeningPlayer;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,6 +57,13 @@ func _connected_fail():
 remote func add_to_lobby(id: String, num: int):
 	openingMenu.set_player(id,num);
 	pass
+
+remote func update_player_pos(px: float, py: float):
+	listeningPlayer.update_position(px,py)
+	pass
+
+remote func startGame():
+	openingMenu.enter_debugtown()
 
 remote func test_connection():
 	print("connection works lmao")
