@@ -69,13 +69,13 @@ script = ExtResource( 1 )
 tile_set = SubResource( 1 )
 format = 1
 
-[node name="Player" parent="TileMap" instance=ExtResource( 3 )]
-position = Vector2( 172.097, 166.537 )
-
-[node name="Player2" parent="TileMap" instance=ExtResource( 3 )]
-position = Vector2( 176.854, 359.189 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 zoom = Vector2( 1.28, 1.28 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 172.097, 166.537 )
+
+[node name="Player2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 176.854, 359.189 )

@@ -63,7 +63,7 @@ func newColumn():
 func initNoise():
 	var randgen = RandomNumberGenerator.new()
 	randgen.randomize()
-	noise.seed = randgen.randi()
+	noise.seed = 0
 	noise.lacunarity = 2.0
 	noise.octaves = 3
 	noise.period = 13.0
