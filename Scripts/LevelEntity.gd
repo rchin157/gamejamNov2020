@@ -5,7 +5,6 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.in_world.append(self)
@@ -13,7 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _dispose():
-	MultiplayerManager.in_world.remove(MultiplayerManager.in_world.find(self));
+	MultiplayerManager.in_world.erase(self)
 	queue_free();
 
 func _exit_tree():

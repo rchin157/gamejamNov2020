@@ -107,5 +107,5 @@ func tileImgSelect(val):
 			return rng.randi_range(19, 51)
 		
 func snap(scroll):
-	for ent in MultiplayerManager.in_world:
-		ent.bounce_back(-scroll)
+	for i in range(MultiplayerManager.in_world.size() - 1, -1, -1):
+		MultiplayerManager.in_world[i].bounce_back(-scroll)
