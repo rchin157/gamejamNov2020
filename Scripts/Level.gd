@@ -5,6 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 var tiles = []
+var tileImgs = []
 var currentScroll = 0
 
 var levelHeight = 12
@@ -15,11 +16,14 @@ var cellsPassed = levelWidth
 
 var noise = OpenSimplexNoise.new()
 
+var rng = RandomNumberGenerator.new()
+
 onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.seed = 0
 	initNoise()
 	generateInitialTiles()
 	if(MultiplayerManager.is_server):
@@ -41,22 +45,28 @@ func _process(delta):
 func generateInitialTiles():
 	for i in range(levelWidth):
 		tiles.append([])
+		tileImgs.append([])
 		tiles[i] = []
+		tileImgs[i] = []
 		for j in range(levelHeight):
 			tiles[i].append([])
-			var tileval = bias(int(round((noise.get_noise_2d(i * 2, j) + 1.0) * 4.0)))
+			tileImgs[i].append([])
+			var tileval = tileBias(int(round((noise.get_noise_2d(i * 2, j) + 1.0) * 4.0)))
 			tiles[i][j] = tileval
-			tilemap.set_cell(i, j, tileval)
+			tileImgs[i][j] = tileImgSelect(tileval)
+			tilemap.set_cell(i, j, tileImgs[i][j])
 
 func newColumn():
 	for i in range(levelWidth - 1):
 		for j in range(levelHeight):
 			tiles[i][j] = tiles[i + 1][j]
-			tilemap.set_cell(i, j, tiles[i][j])
+			tileImgs[i][j] = tileImgs[i + 1][j]
+			tilemap.set_cell(i, j, tileImgs[i][j])
 	for j in range(levelHeight):
-		var tileval = bias(int(round((noise.get_noise_2d(cellsPassed * 2, j) + 1.0) * 4.0)))
+		var tileval = tileBias(int(round((noise.get_noise_2d(cellsPassed * 2, j) + 1.0) * 4.0)))
 		tiles[levelWidth - 1][j] = tileval
-		tilemap.set_cell(levelWidth - 1, j, tileval)
+		tileImgs[levelWidth - 1][j] = tileImgSelect(tileval)
+		tilemap.set_cell(levelWidth - 1, j, tileImgs[levelWidth - 1][j])
 		#print(tileval)
 	cellsPassed += 1
 
@@ -69,11 +79,23 @@ func initNoise():
 	noise.period = 13.0
 	noise.persistence = 0.8
 
-func bias(val):
-	print(val)
+func tileBias(val):
+	#land
 	if val <= 3:
 		return 0
+	#tree
 	elif val <= 5:
 		return 1
+	#water
 	elif val <= 8:
 		return 2
+
+func tileImgSelect(val):
+	match val:
+		0, 1:
+			#select tree
+			return rng.randi_range(0, 18)
+		2:
+			#select water
+			return rng.randi_range(19, 51)
+		
