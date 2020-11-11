@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Test Multiplayer.gd" type="Script" id=2]
+[ext_resource path="res://Entities/Beta.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Entities/Tree.tscn" type="PackedScene" id=4]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -10,3 +12,30 @@ script = ExtResource( 2 )
 
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1.88775, 120.816 )
+
+[node name="Beta" parent="." instance=ExtResource( 3 )]
+position = Vector2( 486.048, 187.943 )
+
+[node name="Beta2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 362.37, 466.217 )
+
+[node name="KinematicBody" parent="." instance=ExtResource( 4 )]
+position = Vector2( 618.91, 10.9299 )
+
+[node name="KinematicBody2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 618.019, 75.9655 )
+
+[node name="KinematicBody3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 620.691, 131.201 )
+
+[node name="KinematicBody4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 628.709, 181.982 )
+
+[node name="KinematicBody5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 633.164, 222.073 )
+
+[node name="KinematicBody6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 633.164, 264.836 )
+
+[node name="KinematicBody7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 642.073, 314.726 )
