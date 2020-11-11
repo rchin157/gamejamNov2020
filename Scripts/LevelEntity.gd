@@ -9,10 +9,11 @@ extends KinematicBody2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.in_world.append(self)
+	print(MultiplayerManager.in_world.size())
 	pass # Replace with function body.
 
 func _dispose():
-	MultiplayerManager.in_world.remove(MultiplayerManager.in_world.bsearch(self));
+	MultiplayerManager.in_world.remove(MultiplayerManager.in_world.find(self));
 	queue_free();
 
 func _exit_tree():
@@ -20,6 +21,8 @@ func _exit_tree():
 
 func bounce_back(step :float):
 	set_position(Vector2(get_position().x+step,get_position().y))
+	if (get_position().x < -50):
+		_dispose()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
