@@ -13,6 +13,7 @@ enum directions {UP, DOWN, LEFT, RIGHT}
 var facing = directions.DOWN;
 var interact_collide;
 var acting = false
+var pushing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,10 +31,44 @@ func _process(delta):
 			move_and_slide(velocity)
 			MultiplayerManager.rpc("update_player_pos",get_position().x,get_position().y)
 		check_acting()
+		#TogglePushing
+		check_pushing()
+	pass
+
+func check_pushing():
+	if Input.get_action_strength("ui_focus_next"):
+		if !pushing: 
+			pushing = true;
+			set_collision_layer_bit(5,true)
+	elif pushing:
+		pushing = false
+		set_collision_layer_bit(5,false)
 	pass
 
 func check_acting():
+	var check = Input.get_action_strength("ui_accept")
+	if(acting):
+		tooltime-=1;
+		if(!check):
+			tooltime = 50;
+			acting = false;
+	elif(check):
+		tooltime-=1;
+		acting = true;
+	if(tooltime<=0):
+		doAct();
 	pass
+	
+	#YOU STUPID, DO THIS WITH OVERRIDES TOMORROW :
+func doAct():
+	tooltime = 50;
+	match focus.type:
+		focus.types.TREE:
+			var bundle = load("res://Entities/Item.tscn").instance();
+			bundle.set_position(focus.get_position())
+			get_parent().add_child(bundle);
+			focus._dispose();
+			focus = null
 
 func calculate_dir(dir: Vector2):
 	var prior = facing;
@@ -78,6 +113,7 @@ func get_direction()-> Vector2:
 
 #This runs when something is in the interactable range
 func _on_Area2D_body_entered(body):
+	tooltime =50;
 	focus = body;
 	pass # Replace with function body.
 
