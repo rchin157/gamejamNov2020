@@ -5,7 +5,7 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var velocity = Vector2.ZERO;
-var speed = 8000;
+var speed = 800;
 var local = true;
 
 # Called when the node enters the scene tree for the first time.
@@ -16,7 +16,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(local):
-		velocity = get_direction()*speed*delta;
+		velocity = get_direction()*speed;
 		if(velocity.length()>0):
 			move_and_slide(velocity)
 			MultiplayerManager.rpc("update_player_pos",get_position().x,get_position().y)
