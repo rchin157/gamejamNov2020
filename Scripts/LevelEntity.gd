@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-
+enum types {PLAYER,TREE,PUNPUN,ITEM,DEFAULT}
+var type = types.DEFAULT;
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
