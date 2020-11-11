@@ -11,6 +11,7 @@ var is_server = false;
 var openingMenu;
 var listeningPlayer;
 var in_world = [];
+var itemSpawner
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,7 +20,7 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
-
+	itemSpawner = preload("res://Entities/Item.tscn")
 func set_id(name: String):
 	id = name
 

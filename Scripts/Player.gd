@@ -4,8 +4,10 @@ extends "res://Scripts/LevelEntity.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var focus = null;
-var tooltime = 50;
+const TOOLTIMEMAX = 200;
+var focus = [];
+var pfocus = null;
+var tooltime = TOOLTIMEMAX;
 var velocity = Vector2.ZERO;
 var speed = 800;
 var local = true;
@@ -28,9 +30,20 @@ func _process(delta):
 		calculate_dir(direction)
 		velocity = direction*speed;
 		if(velocity.length()>0):
+			Music.toggleSong(11,true)
 			move_and_slide(velocity)
 			MultiplayerManager.rpc("update_player_pos",get_position().x,get_position().y)
-		check_acting()
+		else:
+			Music.toggleSong(11,false)
+		if focus.size()>0:
+			check_acting()
+			if(pushing):
+				var pvelocity
+				if(facing == directions.DOWN or facing == directions.UP):
+					pvelocity = Vector2(0,velocity.y)
+				else:
+					pvelocity = Vector2(velocity.x,0)
+				pfocus.attemptPush(pvelocity)
 		#TogglePushing
 		check_pushing()
 	pass
@@ -39,21 +52,26 @@ func check_pushing():
 	if Input.get_action_strength("ui_focus_next"):
 		if !pushing: 
 			pushing = true;
-			set_collision_layer_bit(5,true)
+			set_collision_mask_bit(3,true)
 	elif pushing:
-		pushing = false
-		set_collision_layer_bit(5,false)
+		pushing = false;
+		set_collision_mask_bit(3,false)
+		
 	pass
 
 func check_acting():
+	if !pfocus == focus[0]:
+		tooltime = TOOLTIMEMAX
+		pfocus = focus[0]
 	var check = Input.get_action_strength("ui_accept")
 	if(acting):
-		tooltime-=1;
+		tooltime = pfocus.action_tick(tooltime);
 		if(!check):
-			tooltime = 50;
+			tooltime = TOOLTIMEMAX;
 			acting = false;
+			pfocus.actionStopped()
 	elif(check):
-		tooltime-=1;
+		tooltime = pfocus.action_tick(tooltime);
 		acting = true;
 	if(tooltime<=0):
 		doAct();
@@ -61,14 +79,8 @@ func check_acting():
 	
 	#YOU STUPID, DO THIS WITH OVERRIDES TOMORROW :
 func doAct():
-	tooltime = 50;
-	match focus.type:
-		focus.types.TREE:
-			var bundle = load("res://Entities/Item.tscn").instance();
-			bundle.set_position(focus.get_position())
-			get_parent().add_child(bundle);
-			focus._dispose();
-			focus = null
+	tooltime = TOOLTIMEMAX;
+	pfocus.action_finish();
 
 func calculate_dir(dir: Vector2):
 	var prior = facing;
@@ -82,6 +94,7 @@ func calculate_dir(dir: Vector2):
 		elif(dir.y<0):
 			facing = directions.UP;
 		if(!prior==facing):
+			pushing = false
 			updateInteract(facing);
 	pass
 
@@ -113,12 +126,11 @@ func get_direction()-> Vector2:
 
 #This runs when something is in the interactable range
 func _on_Area2D_body_entered(body):
-	tooltime =50;
-	focus = body;
+	focus.append(body)
 	pass # Replace with function body.
 
 
 func _on_Area2D_body_exited(body):
-	if(body == focus):
-		focus = null
+	body.actionStopped()
+	focus.erase(body)
 	pass # Replace with function body.

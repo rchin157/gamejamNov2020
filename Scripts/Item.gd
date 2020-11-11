@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends "res://Scripts/LevelEntity.gd"
 
 
 # Declare member variables here. Examples:
@@ -7,19 +7,22 @@ extends RigidBody2D
 
 
 func _ready():
-	MultiplayerManager.in_world.append(self)
-	#print(MultiplayerManager.in_world.size())
 	pass # Replace with function body.
 
-func _dispose():
-	MultiplayerManager.in_world.erase(self)
-	queue_free();
-
-func _exit_tree():
-	_dispose();
-
-func bounce_back(step :float):
-	set_position(Vector2(get_position().x+step,get_position().y))
-	if (get_position().x < -50):
-		_dispose()
-	pass
+func attemptPush(displace: Vector2):
+	var initialpos = get_position()
+	var initialColl = move_and_slide(displace)
+	if(get_slide_count()>0):
+		var collider = get_slide_collision(0)
+		set_position(initialpos)
+		var name = collider.collider.get_name()
+		var push = get_parent().get_node(name)
+		print(push.get_class())
+		push.attemptPush(displace);
+		move_and_slide(displace)
+	#if(initialColl != null):
+		#var collisionName = (initialColl as Node).get_name()
+		#var collision = get_parent().get_child(collisionName)
+		#set_position(initialpos)
+	#	collision.attemptPush(displace)
+		#move_and_collide(displace)

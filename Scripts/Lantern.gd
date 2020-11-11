@@ -1,4 +1,4 @@
-extends "res://Scripts/LevelEntity.gd"
+extends "res://Scripts/Item.gd"
 
 
 # Declare member variables here. Examples:
@@ -9,6 +9,10 @@ var fuel = maxFuel
 var state = 3
 var animator
 
+func attemptPush(displace: Vector2):
+	print('lantern push')
+	.attemptPush(displace)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	animator = get_node("AnimatedSprite")
@@ -17,9 +21,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if fuel > 0:
+		Music.toggleSong(8,true)
 		fuel -= delta
 	else:
 		fuel = 0
+		Music.toggleSong(8,false)
 	#print(fuel)
 	updateLantern()
 

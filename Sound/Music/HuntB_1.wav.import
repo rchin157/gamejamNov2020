@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/HuntB_1.wav-a6b11463b869b6547bd840bab247f457.sample"
+
+[deps]
+
+source_file="res://Sound/Music/HuntB_1.wav"
+dest_files=[ "res://.import/HuntB_1.wav-a6b11463b869b6547bd840bab247f457.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

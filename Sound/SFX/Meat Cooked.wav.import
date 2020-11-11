@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Meat Cooked.wav-ff6cd89e68c0fd4e5e4fd008a6a3126f.sample"
+
+[deps]
+
+source_file="res://Sound/SFX/Meat Cooked.wav"
+dest_files=[ "res://.import/Meat Cooked.wav-ff6cd89e68c0fd4e5e4fd008a6a3126f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
