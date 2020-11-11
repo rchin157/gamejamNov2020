@@ -19,6 +19,7 @@ var noise = OpenSimplexNoise.new()
 var rng = RandomNumberGenerator.new()
 
 var tree = load("res://Entities/Tree.tscn")
+var pun = load("res://Entities/Beta.tscn")
 
 onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
@@ -75,6 +76,10 @@ func newColumn():
 			var treeNode = tree.instance()
 			treeNode.set_position(Vector2((levelWidth) * 64 + 32, j * 64))
 			add_child(treeNode)
+		if tileval == 0 and rng.randi_range(0, 50) == 10:
+			var punode = pun.instance()
+			punode.set_position(Vector2((levelWidth) * 64 + 32, j * 64))
+			add_child(punode)
 	cellsPassed += 1
 
 func initNoise():
