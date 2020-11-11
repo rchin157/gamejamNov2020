@@ -53,10 +53,14 @@ func _on_Connect_Button_pressed():
 
 func _on_Start_Button_pressed():
 	#BEGIN THE GAME
-	enter_debugtown();
+	#enter_debugtown();
+	startgam()
 	MultiplayerManager.rpc("startGame");
 	pass # Replace with function body.
 
 func enter_debugtown():
 	get_tree().change_scene("res://Level/Test Multiplayer.tscn");
 	pass
+
+func startgam():
+	get_tree().change_scene("res://Level/Level.tscn")

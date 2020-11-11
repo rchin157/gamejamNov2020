@@ -22,6 +22,11 @@ onready var camera = get_node("Camera2D")
 func _ready():
 	initNoise()
 	generateInitialTiles()
+	if(MultiplayerManager.is_server):
+		MultiplayerManager.listeningPlayer = get_node("Player2");
+	else:
+		MultiplayerManager.listeningPlayer = get_node("Player");
+	MultiplayerManager.listeningPlayer.local= false;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

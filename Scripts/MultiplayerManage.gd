@@ -63,7 +63,7 @@ remote func update_player_pos(px: float, py: float):
 	pass
 
 remote func startGame():
-	openingMenu.enter_debugtown()
+	openingMenu.startgam()
 
 remote func test_connection():
 	print("connection works lmao")
