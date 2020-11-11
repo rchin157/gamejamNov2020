@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://Scripts/LevelEntity.gd"
 
 
 # Declare member variables here. Examples:
@@ -7,6 +7,7 @@ extends KinematicBody2D
 var velocity = Vector2.ZERO;
 var speed = 800;
 var local = true;
+enum directions {UP, DOWN, LEFT, RIGHT}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

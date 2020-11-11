@@ -10,6 +10,7 @@ var port = 25565;
 var is_server = false;
 var openingMenu;
 var listeningPlayer;
+var in_world = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
