@@ -1,11 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/logo.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Sprites/SOUL.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Main Menu.gd" type="Script" id=3]
+[ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+outline_color = Color( 0.866667, 0.419608, 0.0235294, 1 )
+extra_spacing_top = 10
+font_data = ExtResource( 4 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -23,13 +40,36 @@ __meta__ = {
 position = Vector2( 944.35, 584.301 )
 scale = Vector2( 3, 3 )
 frames = ExtResource( 1 )
-frame = 29
+frame = 60
 playing = true
 
 [node name="start" type="Button" parent="."]
-margin_right = 12.0
-margin_bottom = 20.0
+margin_left = 165.0
+margin_top = 323.269
+margin_right = 365.0
+margin_bottom = 373.269
+custom_fonts/font = SubResource( 1 )
+text = "Start"
 
-[node name="Button" type="Button" parent="."]
-margin_right = 12.0
-margin_bottom = 20.0
+[node name="info" type="Button" parent="."]
+margin_left = 165.0
+margin_top = 395.591
+margin_right = 365.0
+margin_bottom = 445.591
+custom_fonts/font = SubResource( 2 )
+text = "Info"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_bottom = 0.333
+margin_left = 66.0
+margin_top = 244.0
+margin_right = 497.0
+margin_bottom = 331.0
+custom_fonts/normal_font = SubResource( 3 )
+custom_colors/default_color = Color( 0.905882, 0.392157, 0.027451, 1 )
+text = "Qinoo Quest"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="info" to="." method="_on_info_pressed"]

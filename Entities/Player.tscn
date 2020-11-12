@@ -42,11 +42,13 @@ shape = SubResource( 3 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "walkDown"
+frame = 11
+playing = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="area_entered" from="warmthZone" to="." method="_on_warmthZone_area_entered"]
 [connection signal="area_exited" from="warmthZone" to="." method="_on_warmthZone_area_exited"]
-[connection signal="body_entered" from="warmthZone" to="." method="_on_warmthZone_body_entered"]
 [connection signal="body_entered" from="warmthZone" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="warmthZone" to="." method="_on_warmthZone_body_exited"]
+[connection signal="body_entered" from="warmthZone" to="." method="_on_warmthZone_body_entered"]
 [connection signal="body_exited" from="warmthZone" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_exited" from="warmthZone" to="." method="_on_warmthZone_body_exited"]
