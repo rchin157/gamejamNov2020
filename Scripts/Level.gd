@@ -215,7 +215,7 @@ func newColumn():
 			var treeNode = tree.instance()
 			treeNode.set_position(Vector2((front) * 64 + 32, j * 64))
 			add_child(treeNode)
-		if tileval == 0 and rng.randi_range(0, 50) == 10:
+		if tileval == 0 and rng.randi_range(0, 30) == 10:
 			var punode = pun.instance()
 			punode.set_position(Vector2((front) * 64 + 32, j * 64 + 32))
 			add_child(punode)
@@ -352,7 +352,7 @@ func renderSetpiece():
 				treeNode.set_position(Vector2((i + 1) * 64 + 32, j * 64))
 				add_child(treeNode)
 				treeNode.animator.frame = 8
-			if tiles[i][j] == 0 and rng.randi_range(0, 50) == 10:
+			if tiles[i][j] == 0 and rng.randi_range(0, 30) == 10:
 				var punode = pun.instance()
 				punode.set_position(Vector2((i + 1) * 64 + 32, j * 64 + 32))
 				add_child(punode)
