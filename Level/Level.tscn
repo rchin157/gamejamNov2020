@@ -1551,7 +1551,7 @@ script = ExtResource( 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 48 )
-collision_layer = 3
+collision_layer = 2
 format = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
