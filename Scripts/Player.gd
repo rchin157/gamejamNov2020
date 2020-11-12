@@ -175,7 +175,8 @@ func depleteHunger(amount):
 		hunger = 0
 		MultiplayerManager.rpc("starved")
 		starved()
-	var checkstate = 9-(hunger/(maxHunger/9))
+	var checkstate = int(9-(hunger/(maxHunger/9)))
+	#print(checkstate)
 	if(checkstate != hungerState and UI != null):
 		UI.updateHunger(checkstate)
 		hungerState = checkstate
@@ -192,7 +193,7 @@ func updateWarmth(amount):
 		warmth = 0
 		MultiplayerManager.rpc("froze")
 		frozen()
-	var checkstate = 9-(warmth/(MAXWARMTH/9))
+	var checkstate = int(9-(warmth/(MAXWARMTH/9)))
 	if(checkstate != warmthState and UI != null):
 		UI.updateWarmth(checkstate)
 		warmthState = checkstate

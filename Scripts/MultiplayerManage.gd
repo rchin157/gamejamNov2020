@@ -73,7 +73,8 @@ remote func cookFood(index):
 	MultiplayerManager.level.get_node(index).setCooked();
 
 remote func updatePlayerAnimation(state):
-	listeningPlayer.changeState(state)
+	if listeningPlayer != null:
+		listeningPlayer.changeState(state)
 
 remote func movePunPun(index, position, animation):
 	if MultiplayerManager.level != null:
@@ -101,7 +102,8 @@ remote func update_player_pos(px: float, py: float):
 	pass
 
 remote func update_object_position(index, px: float, py: float):
-	MultiplayerManager.level.get_node(index).set_position(Vector2(px,py));
+	if MultiplayerManager.level.get_node(index) != null:
+		MultiplayerManager.level.get_node(index).set_position(Vector2(px,py));
 
 remote func levelEntityAction(index):
 	print("you got mail!")
