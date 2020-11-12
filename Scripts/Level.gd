@@ -128,6 +128,12 @@ func _ready():
 	MultiplayerManager.listeningPlayer.local= false;
 	MultiplayerManager.activeplayer = player
 	player.UI = ui
+	
+	#AAAAAAAAAA
+	get_node("Player/AnimatedSprite").set_modulate(MultiplayerManager.colorList[0])
+	get_node("Player").setName(MultiplayerManager.names[0])
+	get_node("Player2/AnimatedSprite").set_modulate(MultiplayerManager.colorList[1])
+	get_node("Player2").setName(MultiplayerManager.names[1])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

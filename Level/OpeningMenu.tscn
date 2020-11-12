@@ -106,6 +106,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Color" type="ColorPickerButton" parent="ConnectScreen"]
+margin_left = 258.622
+margin_top = 342.627
+margin_right = 758.622
+margin_bottom = 372.627
+color = Color( 1, 0.00784314, 0.00784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( 919, 80 )
 scale = Vector2( 1.94792, 1.76623 )

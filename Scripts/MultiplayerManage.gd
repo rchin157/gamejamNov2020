@@ -17,6 +17,8 @@ var level = null;
 var random_seed = 0;
 var loseCondtion = 0
 var endingText = ["You starved to death", "You froze to death", "You got left behind"]
+var colorList = [Color(1,1,1),Color(1,1,1)];
+var names = ["basic","basic"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,10 +50,10 @@ func createClient(Ip: String):
 func _player_connected(gid):
 	# Called on both clients and server when a peer connects. Send my info to it.
 	if(is_server):
-		rpc("add_to_lobby",id,0)
+		rpc("add_to_lobby",id,0, colorList[0])
 		rpc("setSeed",random_seed)
 	else:
-		rpc("add_to_lobby",id,1)
+		rpc("add_to_lobby",id,1, colorList[1])
 		openingMenu.set_player(id,1);		
 
 func _player_disconnected(gid):
