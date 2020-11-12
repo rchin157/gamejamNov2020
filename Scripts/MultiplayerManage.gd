@@ -70,7 +70,8 @@ func _connected_fail():
 	pass # Could not even connect to server; abort.
 
 remote func cookFood(index):
-	MultiplayerManager.level.get_node(index).setCooked();
+	if MultiplayerManager.level.get_node(index) != null : 
+		MultiplayerManager.level.get_node(index).setCooked();
 
 remote func updatePlayerAnimation(state):
 	if listeningPlayer != null:
@@ -89,10 +90,12 @@ remote func add_to_lobby(id: String, num: int, color):
 	pass
 
 remote func dispose(index):
-	MultiplayerManager.level.get_node(index)._dispose();
+	if MultiplayerManager.level.get_node(index) !=null:
+		MultiplayerManager.level.get_node(index)._dispose();
 
 remote func waterLog(index,i,j ):
-	MultiplayerManager.level.get_node(index).remoteWaterLog(index, i, j)
+	if MultiplayerManager.level.get_node(index) !=null:
+		MultiplayerManager.level.get_node(index).remoteWaterLog(index, i, j)
 
 remote func setSeed(Seed):
 	random_seed = Seed;
