@@ -30,27 +30,31 @@ func get_interactable():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#print(running)
-	if numAttackers == 0:
-		influences.clear()
-	if running:
-		walkTimer = 8
-		walking = false
-		direction = Vector2.ZERO
-		for body in influences:
-			direction += get_position() - body.get_position()
-		direction = direction.normalized() * speed
-		if facingRight and direction.x < 0:
-			animator.set_animation("chaseLeft")
-			facingRight = false
-		elif not facingRight and direction.x >= 0:
-			animator.set_animation("chaseRight")
-			facingRight = true
-		move_and_slide(direction)
-	walkTimer -= delta
-	if walkTimer <= 0:
-		togglewalk()
-	if walking:
-		move_and_slide(passiveDirection * (speed / 3))
+	if MultiplayerManager.is_server:
+		if numAttackers == 0:
+			influences.clear()
+		if running:
+			walkTimer = 8
+			walking = false
+			direction = Vector2.ZERO
+			for body in influences:
+				direction += get_position() - body.get_position()
+			direction = direction.normalized() * speed
+			if facingRight and direction.x < 0:
+				animator.set_animation("chaseLeft")
+				facingRight = false
+			elif not facingRight and direction.x >= 0:
+				animator.set_animation("chaseRight")
+				facingRight = true
+			move_and_slide(direction)
+		walkTimer -= delta
+		if walkTimer <= 0:
+			togglewalk()
+		if walking:
+			move_and_slide(passiveDirection * (speed / 3))
+		if(MultiplayerManager.isConnected()):
+			var index = MultiplayerManager.in_world.find(self)
+			MultiplayerManager.rpc("movePunPun",index,get_position(),animator.get_animation())
 
 
 func _on_Area2D_body_entered(body):
