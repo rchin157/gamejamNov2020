@@ -65,9 +65,10 @@ func _process(delta):
 		eatCD-=delta
 		if(eatCD<0):
 			eatCD = 0
-	if cooking:
+	if cooking and foodtime != -1:
 		foodtime-=delta
 		if(foodtime<=0):
+			foodtime = -1
 			remoteCooked()
 
 func action_tick(tooltime,delta):
