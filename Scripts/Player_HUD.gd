@@ -24,7 +24,7 @@ func updateWarmth(state: int):
 	pass
 
 func createProgress(position: Vector2):
-	Progress.set_position(position+Vector2(0,-50))
+	Progress.set_position(position+Vector2(-32,-50))
 	Progress.show()
 	updateProgress(0)
 	pass

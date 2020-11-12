@@ -26,6 +26,8 @@ var setPieceProgress = 20
 
 onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
+onready var ui = get_node("Camera2D/Player UI")
+onready var player = get_node("Player2")
 
 #Fuck me
 var TLW = [19]
@@ -105,6 +107,7 @@ func _ready():
 	else:
 		MultiplayerManager.listeningPlayer = get_node("Player");
 	MultiplayerManager.listeningPlayer.local= false;
+	player.UI = ui
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -113,8 +116,10 @@ func _process(delta):
 	if currentScroll >= cellwidth:
 		newColumn()
 		snap(currentScroll)
+		camera.position -= Vector2(currentScroll,0)
 		currentScroll = 0
-	camera.offset = Vector2(currentScroll, 0)
+	#camera.offset = Vector2(currentScroll, 0)
+	camera.position += Vector2(step, 0)
 	
 
 func generateInitialTiles():

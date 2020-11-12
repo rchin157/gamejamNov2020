@@ -78,18 +78,19 @@ func check_pushing():
 	pass
 
 func check_acting():
+	var check = Input.get_action_strength("ui_accept")
 	if !pfocus == focus[0]:
 		tooltime = TOOLTIMEMAX
 		pfocus = focus[0]
-		if UI != null:
+		if UI != null and check:
 			UI.createProgress(pfocus.get_position())
-	var check = Input.get_action_strength("ui_accept")
+	#var check = Input.get_action_strength("ui_accept")
 	if(acting):
 		tooltime = pfocus.action_tick(tooltime);
 		if(!check):
 			tooltime = TOOLTIMEMAX;
 			acting = false;
-			if UI != null:
+			if UI != null and not check:
 				UI.removeProgress()
 			pfocus.actionStopped()
 	elif(check):
