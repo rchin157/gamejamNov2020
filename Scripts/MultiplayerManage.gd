@@ -12,6 +12,7 @@ var openingMenu;
 var listeningPlayer;
 var in_world = [];
 var itemSpawner
+var random_seed;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +29,8 @@ func createServer():
 	peer = NetworkedMultiplayerENet.new();
 	peer.create_server(port, 1);
 	get_tree().network_peer = peer;
+	randomize();
+	random_seed = randi()
 	is_server = true;
 	
 func createClient(Ip: String):
@@ -39,10 +42,10 @@ func _player_connected(gid):
 	# Called on both clients and server when a peer connects. Send my info to it.
 	if(is_server):
 		rpc("add_to_lobby",id,0)
+		rpc("setSeed",random_seed)
 	else:
 		rpc("add_to_lobby",id,1)
-		openingMenu.set_player(id,1);
-		
+		openingMenu.set_player(id,1);		
 
 func _player_disconnected(gid):
 	pass
@@ -60,12 +63,18 @@ remote func add_to_lobby(id: String, num: int):
 	openingMenu.set_player(id,num);
 	pass
 
+remote func setSeed(Seed):
+	random_seed = Seed;
+
 remote func update_player_pos(px: float, py: float):
 	listeningPlayer.update_position(px,py)
 	pass
 
 remote func update_object_position(index: int, px: float, py: float):
 	in_world[index].set_position(Vector2(px,py));
+
+remote func levelEntityAction(index):
+	in_world[index].action_finish();
 
 remote func toggleSound(index, state):
 	if(state):
