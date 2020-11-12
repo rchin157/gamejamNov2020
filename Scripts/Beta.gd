@@ -106,7 +106,7 @@ func action_tick(tooltime):
 	Music.toggleSong(6,true)
 	return .action_tick(tooltime)
 
-func action_finish():
+func action_finish(rem: bool):
 	print('generic task complete notification')
 #	var drop = MultiplayerManager.itemSpawner.instance();
 #	drop.set_position(get_position())

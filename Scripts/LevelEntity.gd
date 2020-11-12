@@ -19,10 +19,8 @@ func _dispose():
 func action_tick(tooltime):
 	return tooltime-1
 
-func action_finish():
+func action_finish(rem: bool):
 	print('generic task complete notification')
-	if(MultiplayerManager.isConnected()):
-		action_finish_remote();
 	return
 
 func attemptPush(displace: Vector2, blacklist):

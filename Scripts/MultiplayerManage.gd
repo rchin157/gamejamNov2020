@@ -77,6 +77,7 @@ remote func update_object_position(index: int, px: float, py: float):
 	in_world[index].set_position(Vector2(px,py));
 
 remote func levelEntityAction(index):
+	print("you got mail!")
 	in_world[index].action_finish();
 
 remote func toggleSound(index, state):
