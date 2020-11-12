@@ -66,7 +66,7 @@ var spawnset = [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
 				[1,1,1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1,1,1],
 				[1,1,1,1,1,1,1,1,1,1,1,1], [0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,6,0,0,0,0],
 				[2,2,2,2,2,2,2,2,2,2,2,2], [0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0], [1,1,1,1,1,1,1,1,1,1,1,1],
@@ -93,7 +93,7 @@ var island2 = [[2,2,2,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,2,2,2,2,2,2,2,2], 
 				[0,0,0,0,2,2,2,0,0,2,2,2],
 				[0,0,0,2,2,2,2,0,0,2,2,2], 
-				[0,0,0,2,2,2,2,0,2,2,2,2],
+				[0,0,0,2,2,2,2,5,2,2,2,2],
 				[0,0,0,0,2,2,2,2,2,2,2,2], 
 				[0,0,0,0,2,2,2,2,0,2,2,2],
 				[0,0,0,0,0,2,2,2,2,2,2,2], 
@@ -155,6 +155,16 @@ func generateInitialTiles():
 				var treeNode = tree.instance()
 				treeNode.set_position(Vector2(i * 64 + 32, j * 64))
 				add_child(treeNode)
+			if tiles[i][j] == 5:
+				var treeNode = tree.instance()
+				treeNode.set_position(Vector2((i) * 64 + 32, j * 64))
+				add_child(treeNode)
+				treeNode.animator.frame = 9
+			if tiles[i][j] == 6:
+				var treeNode = tree.instance()
+				treeNode.set_position(Vector2((i) * 64 + 32, j * 64))
+				add_child(treeNode)
+				treeNode.animator.frame = 8
 			if tileval == 0 and rng.randi_range(0, 50) == 10:
 				var punode = pun.instance()
 				punode.set_position(Vector2(i * 64 + 32, j * 64))
@@ -294,7 +304,7 @@ func tileBias(val):
 
 func tileImgSelect(val):
 	match val:
-		0, 1:
+		0, 1, 5, 6:
 			#select tree
 			return rng.randi_range(0, 18)
 		2:
@@ -322,6 +332,16 @@ func renderSetpiece():
 				var treeNode = tree.instance()
 				treeNode.set_position(Vector2((i + 1) * 64 + 32, j * 64))
 				add_child(treeNode)
+			if tiles[i][j] == 5:
+				var treeNode = tree.instance()
+				treeNode.set_position(Vector2((i + 1) * 64 + 32, j * 64))
+				add_child(treeNode)
+				treeNode.animator.frame = 9
+			if tiles[i][j] == 6:
+				var treeNode = tree.instance()
+				treeNode.set_position(Vector2((i + 1) * 64 + 32, j * 64))
+				add_child(treeNode)
+				treeNode.animator.frame = 8
 			if tiles[i][j] == 0 and rng.randi_range(0, 50) == 10:
 				var punode = pun.instance()
 				punode.set_position(Vector2((i + 1) * 64 + 32, j * 64 + 32))

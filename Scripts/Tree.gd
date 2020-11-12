@@ -11,7 +11,26 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	type = types.TREE;
 	rng.randomize()
-	animator.frame = rng.randi_range(0, 9)
+	animator.frame = getTreeFrame()
+	
+func getTreeFrame():
+	var val = rng.randi() % 14001
+	if val <= 2000:
+		return 0
+	elif val <= 4000:
+		return 1
+	elif val <= 6000:
+		return 2
+	elif val <= 8000:
+		return 3
+	elif val <= 10000:
+		return 4
+	elif val <= 12000:
+		return 5
+	elif val <= 13000:
+		return 6
+	elif val <= 14000:
+		return 7
 
 func action_tick(tooltime,delta):
 	Music.toggleSong(2,true)
