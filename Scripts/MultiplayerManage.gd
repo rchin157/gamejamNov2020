@@ -78,7 +78,6 @@ remote func update_player_pos(px: float, py: float):
 
 remote func update_object_position(index: int, px: float, py: float):
 	in_world[index].set_position(Vector2(px,py));
-	in_world[index].previous = in_world[index].get_position();
 
 remote func levelEntityAction(index):
 	print("you got mail!")

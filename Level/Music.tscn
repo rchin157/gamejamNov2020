@@ -25,34 +25,43 @@ stream = ExtResource( 1 )
 
 [node name="ChopA" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
+volume_db = -25.0
 
 [node name="ChopB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+volume_db = -25.0
 
 [node name="Cook" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+volume_db = -20.0
 
 [node name="Game Over" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 
 [node name="HuntA" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -23.0
 
 [node name="HuntB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -23.0
 
 [node name="Lantern Lit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-autoplay = true
+volume_db = -5.0
 
 [node name="Lantern Proximity" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+volume_db = -10.0
 
 [node name="Title" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+volume_db = -10.0
 
 [node name="WalkA" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+volume_db = -25.0
 
 [node name="WalkB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+volume_db = -25.0
