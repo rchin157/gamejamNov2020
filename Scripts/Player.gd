@@ -270,7 +270,8 @@ func _on_Area2D_body_exited(body):
 func _on_warmthZone_area_entered(area):
 	print('entered lantern')
 	dwarm = campfire
-	Music.toggleSong(9, true)
+	if local:
+		Music.toggleSong(9, true)
 	pass # Replace with function body.
 
 func calculatePush():
@@ -294,5 +295,6 @@ func calculateFocus():
 
 func _on_warmthZone_area_exited(area):
 	dwarm = PASSIVECOOLING
-	Music.toggleSong(9, false)
+	if local:
+		Music.toggleSong(9, false)
 	pass # Replace with function body.

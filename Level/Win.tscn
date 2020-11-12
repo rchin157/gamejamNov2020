@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Sprites/TREENO KINO CG.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Win.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/endcgp.tres" type="SpriteFrames" id=4]
 
 [sub_resource type="DynamicFont" id=1]
-size = 64
+size = 48
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -20,6 +21,7 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 margin_right = 256.0
 margin_bottom = 144.0
 rect_scale = Vector2( 4, 4.2 )
@@ -28,19 +30,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4.2 )
+frames = ExtResource( 4 )
+frame = 11
+playing = true
+centered = false
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 visible = false
-margin_left = 371.0
-margin_top = 156.0
-margin_right = 667.0
-margin_bottom = 226.0
+margin_left = 22.0
+margin_top = 24.0
+margin_right = 1003.0
+margin_bottom = 584.0
 custom_fonts/normal_font = SubResource( 1 )
-text = "You Win"
+text = "It has been done. Qinoo, the God of the Arctic, has been burned. Oongul society has been saved from his divine treachery.
+
+In the end, it truly was…
+
+
+…”QINOO QUEST.”"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button" type="Button" parent="."]
+visible = false
 margin_left = 875.0
 margin_top = 532.0
-margin_right = 999.0
+margin_right = 1006.0
 margin_bottom = 583.0
 custom_fonts/font = SubResource( 2 )
 text = "Return to Main"
