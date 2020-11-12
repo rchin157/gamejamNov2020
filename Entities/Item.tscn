@@ -1,21 +1,20 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sprites/Bundle.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://Entities/Item.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Item.gd" type="Script" id=2]
+
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 6 )
 
-[node name="Item" type="RigidBody2D"]
+[node name="Item" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
 collision_layer = 8
-collision_mask = 48
-mass = 10.0
-gravity_scale = 0.0
+collision_mask = 12
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -5 )
-scale = Vector2( 2, 2 )
+position = Vector2( 0, -2 )
 frames = ExtResource( 1 )
 playing = true
 

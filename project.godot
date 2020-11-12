@@ -21,6 +21,7 @@ config/icon="res://icon.png"
 [autoload]
 
 MultiplayerManager="*res://Multiplayer/MultiplayerManage.tscn"
+Music="*res://Level/Music.tscn"
 
 [rendering]
 

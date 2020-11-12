@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Eat.wav-da398ff55231202aea9fc05de5bad6be.sample"
+
+[deps]
+
+source_file="res://Sound/SFX/Eat.wav"
+dest_files=[ "res://.import/Eat.wav-da398ff55231202aea9fc05de5bad6be.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

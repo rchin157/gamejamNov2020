@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Punpun Dies.wav-21cd5e49a8d44df476b076019288a6ad.sample"
+
+[deps]
+
+source_file="res://Sound/SFX/Punpun Dies.wav"
+dest_files=[ "res://.import/Punpun Dies.wav-21cd5e49a8d44df476b076019288a6ad.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
