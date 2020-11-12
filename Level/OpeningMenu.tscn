@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player Selection Frame.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/OpeningMenu.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/SOUL.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/player/player.tres" type="SpriteFrames" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -147,15 +148,24 @@ __meta__ = {
 }
 
 [node name="PlayerSprite" type="Sprite" parent="LobbyScreen/Player1"]
-position = Vector2( 30.204, 46.2498 )
+position = Vector2( -20.9897, -6.13443 )
+scale = Vector2( 2.5998, 2.63701 )
 texture = ExtResource( 2 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="LobbyScreen/Player1/PlayerSprite"]
+position = Vector2( 0, -0.425655 )
+z_index = 5
+frames = ExtResource( 5 )
+animation = "walkDown"
+
 [node name="PlayerName" type="RichTextLabel" parent="LobbyScreen/Player1"]
-margin_left = 68.9028
-margin_top = 19.8214
-margin_right = 268.903
-margin_bottom = 59.8214
+margin_left = 71.2839
+margin_top = -47.6431
+margin_right = 271.284
+margin_bottom = -7.64314
 custom_fonts/normal_font = SubResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "TEST"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -171,15 +181,25 @@ __meta__ = {
 }
 
 [node name="PlayerSprite" type="Sprite" parent="LobbyScreen/Player2"]
-position = Vector2( 30.204, 46.2498 )
+position = Vector2( -16.6243, 78.7915 )
+scale = Vector2( 2.53779, 2.63701 )
 texture = ExtResource( 2 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="LobbyScreen/Player2/PlayerSprite"]
+position = Vector2( 0.421043, -1.54763 )
+scale = Vector2( 1.02443, 1 )
+z_index = 5
+frames = ExtResource( 5 )
+animation = "walkDown"
+
 [node name="PlayerName" type="RichTextLabel" parent="LobbyScreen/Player2"]
-margin_left = 69.8467
-margin_top = 17.9336
-margin_right = 269.847
-margin_bottom = 57.9336
+margin_left = 73.8152
+margin_top = 38.5698
+margin_right = 273.815
+margin_bottom = 78.5698
 custom_fonts/normal_font = SubResource( 5 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "TEST"
 __meta__ = {
 "_edit_use_anchors_": false
 }
