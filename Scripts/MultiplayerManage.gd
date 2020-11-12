@@ -6,6 +6,7 @@ extends Node
 # var b = "text"
 var peer = null;
 var id; 
+var connected = false
 var port = 25565;
 var is_server = false;
 var openingMenu;
@@ -40,7 +41,7 @@ func createServer():
 	is_server = true;
 
 func isConnected():
-	return peer != null
+	return connected
 
 func createClient(Ip: String):
 	peer = NetworkedMultiplayerENet.new();
@@ -71,6 +72,9 @@ func _connected_fail():
 remote func cookFood(index):
 	MultiplayerManager.level.get_node(index).setCooked();
 
+remote func updatePlayerAnimation(state):
+	listeningPlayer.changeState(state)
+
 remote func movePunPun(index, position, animation):
 	if MultiplayerManager.level != null:
 		var PunPun = MultiplayerManager.level.get_node(index)
@@ -79,6 +83,7 @@ remote func movePunPun(index, position, animation):
 			PunPun.set_position(position)
 
 remote func add_to_lobby(id: String, num: int, color):
+	connected = true
 	openingMenu.set_player(id,num,color);
 	pass
 
