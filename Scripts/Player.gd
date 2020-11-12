@@ -48,7 +48,8 @@ func _process(delta):
 		if(velocity.length()>0):
 			Music.toggleSong(11,true)
 			move_and_slide(velocity)
-			MultiplayerManager.rpc_unreliable("update_player_pos",get_position().x,get_position().y)
+			if(MultiplayerManager.isConnected()):
+				MultiplayerManager.rpc_unreliable("update_player_pos",get_position().x,get_position().y)
 		else:
 			Music.toggleSong(11,false)
 		if focus.size()>0:

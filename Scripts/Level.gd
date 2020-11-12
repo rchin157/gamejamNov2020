@@ -111,7 +111,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var step = 0 #delta / scrollPeriod * cellwidth
+	var step = delta / scrollPeriod * cellwidth
 	currentScroll += step
 	if currentScroll >= cellwidth:
 		newColumn()

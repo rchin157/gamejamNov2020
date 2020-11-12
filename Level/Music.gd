@@ -35,7 +35,7 @@ func toggleSong(index: int, state: bool):
 				remoteToggle(index+1,false)
 	elif state:
 		enableSong(index)
-		if(synchro):
+		if(synchro and MultiplayerManager.isConnected()):
 				remoteToggle(index+1,true)
 
 func remoteToggle(index: int, state: bool):
