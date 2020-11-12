@@ -78,8 +78,8 @@ remote func movePunPun(index, position, animation):
 			PunPun.animator.set_animation(animation)
 			PunPun.set_position(position)
 
-remote func add_to_lobby(id: String, num: int):
-	openingMenu.set_player(id,num);
+remote func add_to_lobby(id: String, num: int, color):
+	openingMenu.set_player(id,num,color);
 	pass
 
 remote func dispose(index):
