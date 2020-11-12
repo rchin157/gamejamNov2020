@@ -20,7 +20,9 @@ func action_tick(tooltime):
 func action_finish():
 	print('generic task complete notification')
 	var drop = MultiplayerManager.itemSpawner.instance();
-	drop.set_position(get_position())
+	var pos = get_position()
+	pos.y += 32
+	drop.set_position(pos)
 	get_parent().add_child(drop)
 	Music.toggleSong(2,false)
 	_dispose()

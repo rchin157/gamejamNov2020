@@ -11,7 +11,7 @@ var currentScroll = 0
 var levelHeight = 12
 var levelWidth = 44
 var cellwidth = 64
-var scrollPeriod = 1
+var scrollPeriod = 8
 var cellsPassed = 24
 
 var noise = OpenSimplexNoise.new()
