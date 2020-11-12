@@ -29,6 +29,11 @@ func attemptPush(displace: Vector2, blacklist):
 func actionStopped():
 	pass
 
+func sendPositionDelta():
+	var index = MultiplayerManager.in_world.find(self)
+	var pos = get_position();
+	MultiplayerManager.rpc_unreliable("update_object_position",index,pos.x,pos.y)
+
 func _exit_tree():
 	_dispose();
 

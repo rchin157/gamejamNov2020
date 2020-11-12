@@ -5,7 +5,7 @@ extends Node
 # var a = 2
 # var b = "text"
 var musicArray
-
+var syncMusic = [2,6,11]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,11 +27,19 @@ func _ready():
 	pass # Replace with function body.
 
 func toggleSong(index: int, state: bool):
+	var synchro = syncMusic.find(index) != -1
 	if(musicArray[index].is_playing()):
 		if !state:
 			stopSong(index)
+			if(synchro):
+				remoteToggle(index+1,false)
 	elif state:
 		enableSong(index)
+		if(synchro):
+				remoteToggle(index+1,true)
+
+func remoteToggle(index: int, state: bool):
+	MultiplayerManager.rpc("toggleSound",index, state)
 
 func enableSong(index: int):
 	musicArray[index].play(musicArray[0].get_playback_position())

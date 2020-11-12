@@ -64,6 +64,15 @@ remote func update_player_pos(px: float, py: float):
 	listeningPlayer.update_position(px,py)
 	pass
 
+remote func update_object_position(index: int, px: float, py: float):
+	in_world[index].set_position(Vector2(px,py));
+
+remote func toggleSound(index, state):
+	if(state):
+		Music.enableSong(index)
+	else:
+		Music.stopSong(index)
+	
 remote func startGame():
 	openingMenu.startgam()
 
