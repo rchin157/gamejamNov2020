@@ -227,10 +227,9 @@ func newColumn():
 			tileImgs[front - 2][j] = watertile
 			tilemap.set_cell(front - 2,j,watertile) 
 	cellsPassed += 1
-	if cellsPassed % 40 == 0: #and rng.randi() % 2 == 0:
+	if cellsPassed % 40 == 0 and rng.randi() % 2 == 0:
 		#print("SETPIECE ADDED")
-		#addSetpiece(rng.randi_range(1,2))
-		addSetpiece(2)
+		addSetpiece(rng.randi_range(1,2))
 		isSetPiece = true
 		setPieceProgress = 20
 

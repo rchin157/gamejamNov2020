@@ -112,7 +112,7 @@ remote func starved():
 	activeplayer.starved()
 	
 remote func froze():
-	activeplayer.froze()
+	activeplayer.frozen()
 	
 remote func leftBehind():
 	activeplayer.fellBehind()
