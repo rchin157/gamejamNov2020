@@ -27,7 +27,7 @@ var setPieceProgress = 20
 onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
 onready var ui = get_node("node2d/Player UI")
-onready var player = get_node("Player2")
+onready var player
 onready var uiPrnt = get_node("node2d")
 
 #Fuck me
@@ -120,8 +120,10 @@ func _ready():
 	generateInitialTiles()
 	if(MultiplayerManager.is_server):
 		MultiplayerManager.listeningPlayer = get_node("Player2");
+		player = get_node("Player")
 	else:
 		MultiplayerManager.listeningPlayer = get_node("Player");
+		player = get_node("Player2")
 	MultiplayerManager.listeningPlayer.local= false;
 	player.UI = ui
 
