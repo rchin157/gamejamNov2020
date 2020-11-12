@@ -5,6 +5,7 @@ extends "res://Scripts/LevelEntity.gd"
 # var a = 2
 # var b = "text"
 var food = false
+var waterlogger = true;
 var cooked = false;
 var cooking = false;
 var foodtime = 5;
@@ -34,6 +35,7 @@ func toggleFood():
 	animator.set_animation("meat")
 	animator.set_frame(0)
 	food = true
+	waterlogger = false;
 
 func waterLog(displace, collider):
 	var name = collider.collider.get_name()
@@ -93,7 +95,7 @@ func attemptPush(displace: Vector2, blacklist):
 	if(get_slide_count()>0):
 		var collider = get_slide_collision(0)
 		if collider.collider.get_collision_layer_bit(1):
-			if !food:
+			if waterlogger:
 				waterLog(displace, collider)
 				return
 		else:

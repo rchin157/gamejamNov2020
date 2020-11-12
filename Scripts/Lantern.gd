@@ -25,6 +25,7 @@ func _draw():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	waterlogger = false;
 	animator = get_node("AnimatedSprite")
 	animator.set_animation("high")
 	shape = get_node("Area2D/CollisionShape2D").get_shape()

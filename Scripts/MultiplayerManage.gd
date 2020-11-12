@@ -70,10 +70,11 @@ remote func cookFood(index):
 	MultiplayerManager.level.get_node(index).setCooked();
 
 remote func movePunPun(index, position, animation):
-	var PunPun = MultiplayerManager.level.get_node(index)
-	if PunPun != null:
-		PunPun.animator.set_animation(animation)
-		PunPun.set_position(position)
+	if MultiplayerManager.level != null:
+		var PunPun = MultiplayerManager.level.get_node(index)
+		if PunPun != null:
+			PunPun.animator.set_animation(animation)
+			PunPun.set_position(position)
 
 remote func add_to_lobby(id: String, num: int):
 	openingMenu.set_player(id,num);
