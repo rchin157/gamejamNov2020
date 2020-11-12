@@ -4,7 +4,7 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var peer;
+var peer = null;
 var id; 
 var port = 25565;
 var is_server = false;
@@ -32,7 +32,10 @@ func createServer():
 	randomize();
 	random_seed = randi()
 	is_server = true;
-	
+
+func isConnected():
+	return peer != null
+
 func createClient(Ip: String):
 	peer = NetworkedMultiplayerENet.new();
 	peer.create_client(Ip,port);
