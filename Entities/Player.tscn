@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/player/player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31.7603, 31.5183 )
+extents = Vector2( 20, 20 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 30.7009, 11.9668 )
@@ -16,9 +16,6 @@ extents = Vector2( 32, 32 )
 position = Vector2( 0, -0.264866 )
 collision_mask = 2147483719
 script = ExtResource( 2 )
-
-[node name="icon" type="Sprite" parent="."]
-texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -40,6 +37,11 @@ collision_mask = 128
 [node name="InteractW" type="CollisionShape2D" parent="warmthZone"]
 modulate = Color( 0.160784, 0.690196, 0.294118, 1 )
 shape = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = ExtResource( 1 )
+animation = "walkDown"
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="area_entered" from="warmthZone" to="." method="_on_warmthZone_area_entered"]
