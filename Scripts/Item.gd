@@ -92,9 +92,10 @@ func attemptPush(displace: Vector2, blacklist):
 	var initialColl = move_and_slide(displace)
 	if(get_slide_count()>0):
 		var collider = get_slide_collision(0)
-		if collider.collider.get_collision_layer_bit(1) and !food:
-			waterLog(displace, collider)
-			return
+		if collider.collider.get_collision_layer_bit(1):
+			if !food:
+				waterLog(displace, collider)
+				return
 		else:
 			set_position(initialpos)
 			var name = collider.collider.get_name()

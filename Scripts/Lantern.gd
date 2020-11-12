@@ -80,7 +80,7 @@ func fuelToState():
 #NOTE CHECK IF IT IS WOOD IN FINAL VERSION 
 func _on_Refueling_body_entered(body):
 	#WHACK
-	if(body != self):
+	if(body != self and !body.food):
 		body._dispose();
 		addFuel(FUELPERLOG)
 	pass # Replace with function body.
