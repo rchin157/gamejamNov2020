@@ -38,11 +38,16 @@ var warmth = MAXWARMTH
 var dwarm = PASSIVECOOLING
 var warmthState = 8
 
+var nametag
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	nametag = get_node("Name")
 	interact_collide = get_node("Area2D/Interact");
 	pass # Replace with function body.
 
+func setName(name):
+	nametag.set_text(name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

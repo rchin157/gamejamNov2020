@@ -10,6 +10,9 @@ var connectScreen;
 var lobbyScreen;
 var playerList = [null,null];
 
+
+var color = Color(0,0,0);
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ip_input = get_node("ConnectScreen/Ip_Input");
@@ -24,6 +27,7 @@ func _ready():
 #func _process(delta):
 #	pass
 func gotoLobby(server: bool):
+	color = get_node("ConnectScreen/Color").get_picker().color
 	MultiplayerManager.set_id(name_input.get_text());
 	connectScreen.hide();
 	lobbyScreen.show();
@@ -31,13 +35,15 @@ func gotoLobby(server: bool):
 	#Server Specific Settings
 	if (server):
 		get_node("LobbyScreen/Start_Button").show();
-		set_player(MultiplayerManager.id, 0)
+		set_player(MultiplayerManager.id, 0, color)
 
 func _on_Host_Button_pressed():
 	MultiplayerManager.createServer()
 	gotoLobby(true);
 	
-func set_player(id: String, num: int):
+func set_player(id: String, num: int, color: Color):
+	MultiplayerManager.colorList[num] = color
+	MultiplayerManager.names[num] = id
 	var select = playerList[num];
 	select.show();
 	select.get_node("PlayerName").set_text(id);

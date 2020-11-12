@@ -44,6 +44,17 @@ frames = ExtResource( 1 )
 animation = "walkDown"
 frame = 11
 playing = true
+
+[node name="Name" type="RichTextLabel" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -40.0
+margin_top = -54.273
+margin_right = 40.0
+margin_bottom = -34.273
+text = "BASED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="area_entered" from="warmthZone" to="." method="_on_warmthZone_area_entered"]
