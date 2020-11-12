@@ -32,7 +32,7 @@ func _ready():
 func set_id(name: String):
 	id = name
 
-func createServer():
+func createServer(port: int):
 	peer = NetworkedMultiplayerENet.new();
 	peer.create_server(port, 1);
 	get_tree().network_peer = peer;
@@ -43,7 +43,7 @@ func createServer():
 func isConnected():
 	return connected
 
-func createClient(Ip: String):
+func createClient(port: int,Ip: String):
 	peer = NetworkedMultiplayerENet.new();
 	peer.create_client(Ip,port);
 	get_tree().network_peer = peer;

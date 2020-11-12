@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/OpeningMenu.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/SOUL.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
+outline_color = Color( 0.396078, 0.0901961, 0.0901961, 1 )
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -34,23 +36,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_top = 1.0
-margin_right = 1021.0
-margin_bottom = 597.0
-color = Color( 0.137255, 0.203922, 0.564706, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1025.0
+margin_bottom = 596.0
+texture = ExtResource( 4 )
+expand = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 211.0
-margin_top = 33.0
-margin_right = 791.0
-margin_bottom = 94.0
+margin_left = 427.39
+margin_top = 24.4966
+margin_right = 1007.39
+margin_bottom = 85.4966
 custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-text = "Placeholder Name for Game
+text = "Qinoo Lobby
 "
 scroll_active = false
 __meta__ = {
@@ -62,10 +62,10 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Host_Button" type="Button" parent="ConnectScreen"]
-margin_left = 355.765
-margin_top = 201.102
-margin_right = 655.765
-margin_bottom = 251.102
+margin_left = 505.696
+margin_top = 204.882
+margin_right = 805.696
+margin_bottom = 254.882
 custom_fonts/font = SubResource( 2 )
 text = "Host Server"
 __meta__ = {
@@ -84,11 +84,23 @@ __meta__ = {
 }
 
 [node name="Ip_Input" type="LineEdit" parent="ConnectScreen"]
-margin_left = 196.0
+margin_left = 197.26
 margin_top = 278.0
-margin_right = 496.0
+margin_right = 497.26
 margin_bottom = 328.0
 custom_fonts/font = SubResource( 3 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Port_Input" type="LineEdit" parent="ConnectScreen"]
+margin_left = 197.26
+margin_top = 206.184
+margin_right = 497.26
+margin_bottom = 256.184
+custom_fonts/font = SubResource( 3 )
+text = "25565"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -115,11 +127,6 @@ color = Color( 1, 0.00784314, 0.00784314, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="icon" type="Sprite" parent="."]
-position = Vector2( 919, 80 )
-scale = Vector2( 1.94792, 1.76623 )
-texture = ExtResource( 2 )
 
 [node name="LobbyScreen" type="Control" parent="."]
 visible = false
