@@ -125,6 +125,7 @@ func _ready():
 		MultiplayerManager.listeningPlayer = get_node("Player");
 		player = get_node("Player2")
 	MultiplayerManager.listeningPlayer.local= false;
+	MultiplayerManager.activeplayer = player
 	player.UI = ui
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

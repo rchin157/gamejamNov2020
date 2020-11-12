@@ -24,14 +24,16 @@ var pushing = false
 var UI = null
 
 #variables for hunger
-var maxHunger = 2000;
+var maxHunger = 60;
 var hunger = maxHunger
 var hungerState= 8;
+const RAWFOOD = 5
+const COOKFOOD = 20
 
 #variables used for warmth
 const PASSIVECOOLING = -1
 var campfire = 5
-const MAXWARMTH = 2000
+const MAXWARMTH = 60
 var warmth = MAXWARMTH
 var dwarm = PASSIVECOOLING
 var warmthState = 8
@@ -107,6 +109,12 @@ func check_acting(delta):
 func doAct():
 	tooltime = TOOLTIMEMAX;
 	pfocus.action_finish(false);
+
+func eatFood(cooked: bool):
+	if cooked:
+		depleteHunger(-COOKFOOD)
+	else:
+		depleteHunger(-RAWFOOD)
 
 func depleteHunger(amount):
 	hunger-=amount
