@@ -92,7 +92,7 @@ func check_acting():
 		if(!check):
 			tooltime = TOOLTIMEMAX;
 			acting = false;
-			if UI != null || not check:
+			if UI != null and not check:
 				UI.removeProgress()
 			pfocus.actionStopped()
 	elif(check and pfocus != null):
