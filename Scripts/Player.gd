@@ -162,6 +162,7 @@ func doAct():
 	pfocus.action_finish(false);
 
 func eatFood(cooked: bool):
+	Music.playSFX(1)
 	if cooked:
 		depleteHunger(-COOKFOOD)
 	else:

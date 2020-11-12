@@ -32,6 +32,10 @@ func getTreeFrame():
 	elif val <= 14000:
 		return 7
 
+func _dispose():
+	Music.playSFX(5)
+	._dispose()
+
 func action_tick(tooltime,delta):
 	Music.toggleSong(2,true)
 	return .action_tick(tooltime,delta)

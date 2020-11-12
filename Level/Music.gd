@@ -6,6 +6,7 @@ extends Node
 # var b = "text"
 var musicArray
 var syncMusic = [2,6,11]
+var sfxArray
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,6 +25,16 @@ func _ready():
 		get_node("WalkA"),
 		get_node("WalkB")
 	]
+	
+	sfxArray = [
+		get_node("Bridge Built"),
+		get_node("Eat"),
+		get_node("Lantern Stoked"),
+		get_node("Meat Cooked"),
+		get_node("Punpun Dies"),
+		get_node("Tree Fall"),
+	]
+	
 	pass # Replace with function body.
 
 func toggleSong(index: int, state: bool):
@@ -40,6 +51,9 @@ func toggleSong(index: int, state: bool):
 
 func remoteToggle(index: int, state: bool):
 	MultiplayerManager.rpc("toggleSound",index, state)
+
+func playSFX(index:int):
+	sfxArray[index].play()
 
 func enableSong(index: int):
 	musicArray[index].play(musicArray[0].get_playback_position())

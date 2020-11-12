@@ -37,6 +37,7 @@ func _process(delta):
 		fuel -= delta
 	else:
 		fuel = 0
+		Music.playSFX(2)
 		Music.toggleSong(8,false)
 	#print(fuel)
 	updateLantern()

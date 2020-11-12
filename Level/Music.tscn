@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Sound/Music/Burning Heart (End CG) (1).wav" type="AudioStream" id=1]
 [ext_resource path="res://Sound/Music/WalkA.wav" type="AudioStream" id=2]
@@ -13,6 +13,12 @@
 [ext_resource path="res://Sound/Music/Marshmallows-_Title_.wav" type="AudioStream" id=11]
 [ext_resource path="res://Sound/Music/ChopA.wav" type="AudioStream" id=12]
 [ext_resource path="res://Level/Music.gd" type="Script" id=13]
+[ext_resource path="res://Sound/SFX/Meat Cooked.wav" type="AudioStream" id=14]
+[ext_resource path="res://Sound/SFX/Bridge Built.wav" type="AudioStream" id=15]
+[ext_resource path="res://Sound/SFX/Tree Fall.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sound/SFX/Punpun Dies.wav" type="AudioStream" id=17]
+[ext_resource path="res://Sound/SFX/Eat.wav" type="AudioStream" id=18]
+[ext_resource path="res://Sound/SFX/Lantern Stoked.wav" type="AudioStream" id=19]
 
 [node name="MusicGlobal" type="Node"]
 script = ExtResource( 13 )
@@ -65,3 +71,21 @@ volume_db = -25.0
 [node name="WalkB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -25.0
+
+[node name="Bridge Built" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[node name="Eat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+
+[node name="Lantern Stoked" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+
+[node name="Meat Cooked" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="Punpun Dies" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+
+[node name="Tree Fall" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )

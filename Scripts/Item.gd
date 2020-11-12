@@ -21,10 +21,12 @@ func remoteWaterLog(index, i, j):
 	level.tiles[i][j] = 4
 	level.tileImgs[i][j] = 67
 	level.tilemap.set_cell(i, j, 67)
+	Music.playSFX(0)
 	MultiplayerManager.level.get_node(index)._dispose()
 	pass
 
 func setCooked():
+	Music.playSFX(3)
 	cooked = true;
 	animator.set_frame(1)
 	
@@ -55,6 +57,7 @@ func waterLog(displace, collider):
 	push.set_cell(posx, posy, 67)
 	level.tiles[posx][posy] = 4
 	level.tileImgs[posx][posy] = 67
+	Music.playSFX(0)
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("waterLog",get_name(),posx,posy)
 	

@@ -101,7 +101,8 @@ remote func setSeed(Seed):
 	random_seed = Seed;
 
 remote func update_player_pos(px: float, py: float):
-	listeningPlayer.update_position(px,py)
+	if listeningPlayer != null:
+		listeningPlayer.update_position(px,py)
 	pass
 
 remote func update_object_position(index, px: float, py: float):
