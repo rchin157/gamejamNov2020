@@ -49,6 +49,7 @@ func set_player(id: String, num: int, color: Color):
 	var select = playerList[num];
 	select.show();
 	select.get_node("PlayerName").set_text(id);
+	select.get_node("PlayerSprite/AnimatedSprite").set_modulate(color)
 	pass
 	
 
