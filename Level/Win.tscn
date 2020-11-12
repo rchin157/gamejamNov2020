@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Sprites/TREENO KINO CG.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Win.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -13,6 +14,7 @@ font_data = ExtResource( 1 )
 [node name="Control" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,3 +47,4 @@ text = "Return to Main"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

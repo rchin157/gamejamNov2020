@@ -46,6 +46,10 @@ func enableSong(index: int):
 	
 func stopSong(index: int):
 	musicArray[index].stop();
+	
+func stopAll():
+	for i in range(1, musicArray.size()):
+		toggleSong(i, false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
