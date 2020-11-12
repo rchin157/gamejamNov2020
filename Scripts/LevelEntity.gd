@@ -28,6 +28,10 @@ func attemptPush(displace: Vector2, blacklist):
 
 func actionStopped():
 	pass
+	
+func action_finish_remote():
+	var index = MultiplayerManager.in_world.find(self)
+	MultiplayerManager.rpc("levelEntityAction",index)
 
 func sendPositionDelta():
 	var index = MultiplayerManager.in_world.find(self)

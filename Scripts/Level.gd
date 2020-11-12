@@ -99,7 +99,7 @@ var setPieces = [spawnset, island1, island2]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rng.seed = 0
+	rng.seed = MultiplayerManager.random_seed
 	initNoise()
 	generateInitialTiles()
 	if(MultiplayerManager.is_server):
