@@ -29,7 +29,7 @@ func setCooked():
 	Music.playSFX(3)
 	cooked = true;
 	animator.set_frame(1)
-	
+	Music.toggleSong(4, false)
 
 func toggleFood():
 	animator = get_node("AnimatedSprite")
@@ -118,10 +118,12 @@ func attemptPush(displace: Vector2, blacklist):
 func _on_Cooking_area_entered(area):
 	if food:
 		cooking = true
+	Music.toggleSong(4, true)
 	pass # Replace with function body.
 
 
 func _on_Cooking_area_exited(area):
 	if food:
 		cooking = false
+	Music.toggleSong(4, false)
 	pass # Replace with function body.

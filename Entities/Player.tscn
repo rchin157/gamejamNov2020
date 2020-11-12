@@ -14,6 +14,7 @@ extents = Vector2( 32, 32 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 0, -0.264866 )
+z_index = 1
 collision_mask = 2147483719
 script = ExtResource( 2 )
 
@@ -58,7 +59,7 @@ __meta__ = {
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="area_entered" from="warmthZone" to="." method="_on_warmthZone_area_entered"]
 [connection signal="area_exited" from="warmthZone" to="." method="_on_warmthZone_area_exited"]
-[connection signal="body_entered" from="warmthZone" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="warmthZone" to="." method="_on_warmthZone_body_entered"]
-[connection signal="body_exited" from="warmthZone" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="warmthZone" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="warmthZone" to="." method="_on_warmthZone_body_exited"]
+[connection signal="body_exited" from="warmthZone" to="." method="_on_Area2D_body_exited"]

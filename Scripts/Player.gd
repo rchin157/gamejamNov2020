@@ -35,8 +35,8 @@ var animator
 
 #variables used for warmth
 const PASSIVECOOLING = -1
-var campfire = 20
-const MAXWARMTH = 120
+var campfire = 5
+const MAXWARMTH = 30
 var warmth = MAXWARMTH
 var dwarm = PASSIVECOOLING
 var warmthState = 8
@@ -270,6 +270,7 @@ func _on_Area2D_body_exited(body):
 func _on_warmthZone_area_entered(area):
 	print('entered lantern')
 	dwarm = campfire
+	Music.toggleSong(9, true)
 	pass # Replace with function body.
 
 func calculatePush():
@@ -293,4 +294,5 @@ func calculateFocus():
 
 func _on_warmthZone_area_exited(area):
 	dwarm = PASSIVECOOLING
+	Music.toggleSong(9, false)
 	pass # Replace with function body.
