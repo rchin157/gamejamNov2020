@@ -9,6 +9,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("Player").UI = get_node("Player UI")
+	get_node("KinematicBody/AnimatedSprite").set_frame(8)
 	pass # Replace with function body.
 
 
