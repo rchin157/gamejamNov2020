@@ -13,7 +13,7 @@ var numAttackers = 0
 var speed = 100
 var animator
 var facingRight = true
-var walkTimer = 2
+var walkTimer = 4
 var walking = false
 
 var influences = []
@@ -66,7 +66,8 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	influences.erase(body)
 	numAttackers -= 1
-	if numAttackers == 0:
+	if numAttackers <= 0:
+		numAttackers = 0
 		running = false
 		if facingRight:
 			animator.set_animation("idleRight")

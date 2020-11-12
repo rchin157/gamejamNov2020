@@ -9,10 +9,10 @@ var tileImgs = []
 var currentScroll = 0
 
 var levelHeight = 12
-var levelWidth = 24
+var levelWidth = 44
 var cellwidth = 64
 var scrollPeriod = 1
-var cellsPassed = levelWidth
+var cellsPassed = 24
 
 var noise = OpenSimplexNoise.new()
 
@@ -20,6 +20,9 @@ var rng = RandomNumberGenerator.new()
 
 var tree = load("res://Entities/Tree.tscn")
 var pun = load("res://Entities/Beta.tscn")
+
+var isSetPiece = false
+var setPieceProgress = 20
 
 onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
@@ -54,6 +57,43 @@ var TB = [72,73]
 #var CW = [60]
 #var BUW = [26]
 
+#Fuck me harder
+var spawnset = [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[1,1,1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1,1,1,1,1,1], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[2,2,2,2,2,2,2,2,2,2,2,2], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [1,1,1,1,1,1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1,1,1,1,1,1], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]]
+var island1 = [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,1,1,0,0,0,0,0,0,0,0,0], [0,1,1,1,0,0,0,0,0,0,0,0],
+				[1,1,1,1,1,0,0,0,0,0,0,0], [2,2,1,1,1,1,0,0,0,0,0,0],
+				[2,2,2,1,1,1,1,0,0,0,0,0], [2,2,2,2,2,1,1,1,0,0,0,0],
+				[2,2,2,2,2,1,0,1,1,0,0,0], [2,2,2,2,2,2,2,1,1,0,0,0],
+				[2,2,2,2,2,2,0,1,1,0,0,0], [0,2,2,2,2,0,0,1,1,1,0,0],
+				[0,2,2,2,2,1,1,1,1,1,0,0], [2,2,2,2,1,1,1,1,0,1,1,0],
+				[2,2,2,0,0,1,1,1,1,1,0,0], [2,1,1,1,1,1,1,1,1,1,0,0],
+				[1,1,1,1,1,1,1,1,1,0,0,0], [1,1,1,1,1,1,1,1,1,0,0,0],
+				[1,1,1,1,1,1,1,0,1,1,0,0], [0,0,0,0,0,0,0,0,1,1,0,0],
+				[1,0,0,0,0,0,0,1,1,1,1,0], [0,0,0,0,0,0,0,0,0,0,0,0]]
+var island2 = [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]]
+				
+var setPieces = [spawnset, island1, island2]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -81,44 +121,72 @@ func generateInitialTiles():
 	for i in range(levelWidth):
 		tiles.append([])
 		tileImgs.append([])
-		tiles[i] = []
-		tileImgs[i] = []
 		for j in range(levelHeight):
-			tiles[i].append([])
-			tileImgs[i].append([])
-			var tileval = tileBias(int(round((noise.get_noise_2d(i * 2, j) + 1.0) * 8.0)))
+			tiles[i].append(-1)
+			tileImgs[i].append(-1)
+	for i in range(24):
+		for j in range(levelHeight):
+			var tileval = setPieces[0][i][j]
 			tiles[i][j] = tileval
 			tileImgs[i][j] = tileImgSelect(tileval)
 			tilemap.set_cell(i, j, tileImgs[i][j])
+			if tileval == 1:
+				var treeNode = tree.instance()
+				treeNode.set_position(Vector2(i * 64 + 32, j * 64))
+				add_child(treeNode)
+			if tileval == 0 and rng.randi_range(0, 50) == 10:
+				var punode = pun.instance()
+				punode.set_position(Vector2(i * 64 + 32, j * 64))
+				add_child(punode)
+	for i in range(2, levelWidth):
+		for j in range(levelHeight):
+			#Checks if it is water
+			var watertile = checkWater(i - 2, j)
+			if watertile != -1:
+				#print(watertile)
+				tileImgs[i - 2][j] = watertile
+				tilemap.set_cell(i - 2,j,watertile) 
+			
 
 func newColumn():
+	var front = levelWidth - 20
 	for i in range(levelWidth - 1):
 		for j in range(levelHeight):
 			tiles[i][j] = tiles[i + 1][j]
 			tileImgs[i][j] = tileImgs[i + 1][j]
 			tilemap.set_cell(i, j, tileImgs[i][j])
+	if isSetPiece:
+		setPieceProgress -= 1
+		if setPieceProgress == 0:
+			isSetPiece = false
+		return
 	for j in range(levelHeight):
 		var tileval = tileBias(int(round((noise.get_noise_2d(cellsPassed * 2, j) + 1.0) * 8.0)))
-		tiles[levelWidth - 1][j] = tileval
-		tileImgs[levelWidth - 1][j] = tileImgSelect(tileval)
-		tilemap.set_cell(levelWidth - 1, j, tileImgs[levelWidth - 1][j])
+		tiles[front - 1][j] = tileval
+		tileImgs[front - 1][j] = tileImgSelect(tileval)
+		tilemap.set_cell(front - 1, j, tileImgs[front - 1][j])
 		# print(tileval)
 		if tileval == 1:
 			var treeNode = tree.instance()
-			treeNode.set_position(Vector2((levelWidth) * 64 + 32, j * 64))
+			treeNode.set_position(Vector2((front) * 64 + 32, j * 64))
 			add_child(treeNode)
 		if tileval == 0 and rng.randi_range(0, 50) == 10:
 			var punode = pun.instance()
-			punode.set_position(Vector2((levelWidth) * 64 + 32, j * 64))
+			punode.set_position(Vector2((front) * 64 + 32, j * 64 + 32))
 			add_child(punode)
 	for j in range(levelHeight):
 		#Checks if it is water
-		var watertile = checkWater(levelWidth - 2, j)
+		var watertile = checkWater(front - 2, j)
 		if watertile != -1:
-			print(watertile)
-			tileImgs[levelWidth - 2][j] = watertile
-			tilemap.set_cell(levelWidth -2,j,watertile) 
+			#print(watertile)
+			tileImgs[front - 2][j] = watertile
+			tilemap.set_cell(front - 2,j,watertile) 
 	cellsPassed += 1
+	if cellsPassed % 40 == 0: #and rng.randi() % 2 == 0:
+		print("SETPIECE ADDED")
+		addSetpiece(1)
+		isSetPiece = true
+		setPieceProgress = 20
 
 func checkWater(i: int, j: int):
 	if(tiles[i][j] == 2):
@@ -176,7 +244,7 @@ func checkWater(i: int, j: int):
 			14:
 				imageArr = RW
 			15:
-				print('you got a center')
+				#print('you got a center')
 				imageArr = CW
 		return imageArr[rng.randi_range(0,imageArr.size()-1)]
 	return -1;
@@ -213,3 +281,33 @@ func tileImgSelect(val):
 func snap(scroll):
 	for i in range(MultiplayerManager.in_world.size() - 1, -1, -1):
 		MultiplayerManager.in_world[i].bounce_back(-scroll)
+		
+func addSetpiece(id):
+	var start = levelWidth - 20
+	for i in range(start, levelWidth):
+		for j in range(levelHeight):
+			tiles[i][j] = setPieces[id][i - start][j]
+			tileImgs[i][j] = tileImgSelect(tiles[i][j])
+			print(tileImgs[i][j])
+			tilemap.set_cell(i, j, tileImgs[i][j])
+	renderSetpiece()
+
+func renderSetpiece():
+	for i in range(levelWidth - 20, levelWidth):
+		for j in range(levelHeight):
+			if tiles[i][j] == 1:
+				var treeNode = tree.instance()
+				treeNode.set_position(Vector2((i + 1) * 64 + 32, j * 64))
+				add_child(treeNode)
+			if tiles[i][j] == 0 and rng.randi_range(0, 50) == 10:
+				var punode = pun.instance()
+				punode.set_position(Vector2((i + 1) * 64 + 32, j * 64 + 32))
+				add_child(punode)
+	for i in range(levelWidth - 20, levelWidth):
+		for j in range(levelHeight):
+			#Checks if it is water
+			var watertile = checkWater(i - 2, j)
+			if watertile != -1:
+				#print(watertile)
+				tileImgs[i - 2][j] = watertile
+				tilemap.set_cell(i - 2,j,watertile)

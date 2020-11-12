@@ -15,12 +15,6 @@ position = Vector2( 656.195, 472.083 )
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1.88775, 120.816 )
 
-[node name="Beta" parent="." instance=ExtResource( 3 )]
-position = Vector2( 486.048, 187.943 )
-
-[node name="Beta2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 362.37, 466.217 )
-
 [node name="KinematicBody" parent="." instance=ExtResource( 4 )]
 position = Vector2( 618.91, 10.9299 )
 
@@ -44,3 +38,9 @@ position = Vector2( 642.073, 314.726 )
 
 [node name="Lantern" parent="." instance=ExtResource( 5 )]
 position = Vector2( 859.041, 251.912 )
+
+[node name="Beta" parent="." instance=ExtResource( 3 )]
+position = Vector2( 486.048, 187.943 )
+
+[node name="Beta2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 640.814, 334.074 )
