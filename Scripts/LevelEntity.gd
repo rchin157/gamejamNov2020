@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 enum types {PLAYER,TREE,PUNPUN,ITEM,DEFAULT}
 var type = types.DEFAULT;
+var previous
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -9,6 +10,7 @@ var type = types.DEFAULT;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.in_world.append(self)
+	previous = get_position()
 	#print(MultiplayerManager.in_world.size())
 	pass # Replace with function body.
 
@@ -36,7 +38,7 @@ func action_finish_remote():
 func sendPositionDelta():
 	var index = MultiplayerManager.in_world.find(self)
 	var pos = get_position();
-	MultiplayerManager.rpc_unreliable("update_object_position",index,pos.x,pos.y)
+	MultiplayerManager.rpc("update_object_position",index,pos.x,pos.y)
 
 func _exit_tree():
 	_dispose();
@@ -49,5 +51,8 @@ func bounce_back(step :float):
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if(previous != get_position()):
+		sendPositionDelta()
+		previous = get_position()
+	pass

@@ -103,7 +103,7 @@ func check_acting():
 	#YOU STUPID, DO THIS WITH OVERRIDES TOMORROW :
 func doAct():
 	tooltime = TOOLTIMEMAX;
-	pfocus.action_finish();
+	pfocus.action_finish(false);
 
 func depleteHunger(amount):
 	hunger-=amount
