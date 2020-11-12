@@ -28,7 +28,7 @@ onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
 onready var ui = get_node("node2d/Player UI")
 onready var player = get_node("Player2")
-onready var uiPrnt = get_node("KinematicBody2D2")
+onready var uiPrnt = get_node("node2d")
 
 #Fuck me
 var TLW = [19]
