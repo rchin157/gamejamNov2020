@@ -9,7 +9,7 @@ var name_input;
 var connectScreen;
 var lobbyScreen;
 var playerList = [null,null];
-
+var port_input
 
 var color = Color(0,0,0);
 
@@ -20,6 +20,7 @@ func _ready():
 	connectScreen = get_node("ConnectScreen")
 	lobbyScreen = get_node("LobbyScreen");
 	playerList = [get_node("LobbyScreen/Player1"),get_node("LobbyScreen/Player2")];
+	port_input = get_node("ConnectScreen/Port_Input")
 	MultiplayerManager.openingMenu = self;
 
 
@@ -39,7 +40,7 @@ func gotoLobby(server: bool):
 
 func _on_Host_Button_pressed():
 	color = get_node("ConnectScreen/Color").get_picker().color
-	MultiplayerManager.createServer()
+	MultiplayerManager.createServer(int(port_input.get_text()))
 	gotoLobby(true);
 	
 func set_player(id: String, num: int, color: Color):
@@ -53,7 +54,7 @@ func set_player(id: String, num: int, color: Color):
 
 func _on_Connect_Button_pressed():
 	color = get_node("ConnectScreen/Color").get_picker().color
-	MultiplayerManager.createClient(ip_input.get_text())
+	MultiplayerManager.createClient(int(port_input.get_text()),ip_input.get_text())
 	MultiplayerManager.names[1] = MultiplayerManager.id
 	MultiplayerManager.colorList[1] = color
 	#Run a check to ensure that the server is valid first
