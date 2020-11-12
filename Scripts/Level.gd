@@ -111,6 +111,7 @@ var setPieces = [spawnset, island1, island2]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MultiplayerManager.level = self
 	if MultiplayerManager.random_seed != null:
 		rng.seed = MultiplayerManager.random_seed
 	else:

@@ -30,17 +30,17 @@ func actionStopped():
 	pass
 #Disposes locally and remotely
 func remote_dispose():
-	var index = MultiplayerManager.in_world.find(self)
+	var index = get_name()
 	MultiplayerManager.rpc("dispose",index)
 	_dispose()
 
 func action_finish_remote():
-	var index = MultiplayerManager.in_world.find(self)
+	var index = get_name()
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("levelEntityAction",index)
 
 func sendPositionDelta():
-	var index = MultiplayerManager.in_world.find(self)
+	var index = get_name()
 	var pos = get_position();
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("update_object_position",index,pos.x,pos.y)

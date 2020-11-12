@@ -13,6 +13,7 @@ var listeningPlayer;
 var activeplayer;
 var in_world = [];
 var itemSpawner
+var level = null;
 var random_seed = 0;
 var loseCondtion = 0
 var endingText = ["You starved to death", "You froze to death", "You got left behind"]
@@ -66,10 +67,10 @@ func _connected_fail():
 	pass # Could not even connect to server; abort.
 
 remote func cookFood(index):
-	in_world[index].setCooked();
+	MultiplayerManager.level.get_node(index).setCooked();
 
 remote func movePunPun(index, position, animation):
-	var PunPun = MultiplayerManager.in_world[index]
+	var PunPun = MultiplayerManager.level.get_node(index)
 	PunPun.animator.set_animation(animation)
 	PunPun.set_position(position)
 
@@ -78,10 +79,10 @@ remote func add_to_lobby(id: String, num: int):
 	pass
 
 remote func dispose(index):
-	in_world[index]._dispose();
+	MultiplayerManager.level.get_node(index)._dispose();
 
 remote func waterLog(index,i,j ):
-	in_world[index].remoteWaterLog(index, i, j)
+	MultiplayerManager.level.get_node(index).remoteWaterLog(index, i, j)
 
 remote func setSeed(Seed):
 	random_seed = Seed;
@@ -90,12 +91,12 @@ remote func update_player_pos(px: float, py: float):
 	listeningPlayer.update_position(px,py)
 	pass
 
-remote func update_object_position(index: int, px: float, py: float):
-	in_world[index].set_position(Vector2(px,py));
+remote func update_object_position(index, px: float, py: float):
+	MultiplayerManager.level.get_node(index).set_position(Vector2(px,py));
 
 remote func levelEntityAction(index):
 	print("you got mail!")
-	in_world[index].action_finish(true);
+	MultiplayerManager.level.get_node(index).action_finish(true);
 
 remote func toggleSound(index, state):
 	if(state):

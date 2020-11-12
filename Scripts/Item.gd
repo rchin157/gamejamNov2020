@@ -20,7 +20,7 @@ func remoteWaterLog(index, i, j):
 	level.tiles[i][j] = 4
 	level.tileImgs[i][j] = 67
 	level.tilemap.set_cell(i, j, 67)
-	MultiplayerManager.in_world[index]._dispose()
+	MultiplayerManager.get_node(index)._dispose()
 	pass
 
 func setCooked():
@@ -54,7 +54,7 @@ func waterLog(displace, collider):
 	level.tiles[posx][posy] = 4
 	level.tileImgs[posx][posy] = 67
 	if(MultiplayerManager.isConnected()):
-		MultiplayerManager.rpc("waterLog",MultiplayerManager.in_world.find(self),posx,posy)
+		MultiplayerManager.rpc("waterLog",get_name(),posx,posy)
 	
 	_dispose()
 
@@ -76,7 +76,7 @@ func action_tick(tooltime,delta):
 
 func remoteCooked():
 	setCooked();
-	var index = MultiplayerManager.in_world.find(self)
+	var index = get_name()
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("cookFood",index)
 
