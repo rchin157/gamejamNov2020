@@ -13,6 +13,8 @@ var listeningPlayer;
 var in_world = [];
 var itemSpawner
 var random_seed = 0;
+var loseCondtion = 0
+var endingText = ["You starved to death", "You froze to death", "You got left behind"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

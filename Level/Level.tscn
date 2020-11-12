@@ -1579,7 +1579,7 @@ position = Vector2( 540.078, 816.9 )
 shape = SubResource( 49 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 1360.62, 314.791 )
+position = Vector2( 1435.23, 317.966 )
 rotation = 1.5708
 shape = SubResource( 49 )
 
