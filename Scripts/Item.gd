@@ -9,6 +9,37 @@ extends "res://Scripts/LevelEntity.gd"
 func _ready():
 	pass # Replace with function body.
 
+func remoteWaterLog(index, i, j):
+	var level = get_parent()
+	level.tiles[i][j] = 4
+	level.tileImgs[i][j] = 67
+	level.tilemap.set_cell(i, j, 67)
+	MultiplayerManager.in_world[index]._dispose()
+	pass
+
+func waterLog(displace, collider):
+	var name = collider.collider.get_name()
+	var push = get_parent().get_node(name)
+	var level = get_parent()
+	var posy
+	var posx
+	if displace.x > 0:
+		posx = int(floor((collider.position.x) / 64))
+	else:
+		posx = int(ceil((collider.position.x) / 64)) - 1
+	if displace.y >= 0:
+		posy = int(floor((collider.position.y) / 64))
+	elif displace.y < 0:
+		posy = int(floor((collider.position.y) / 64)) - 1
+			
+	push.set_cell(posx, posy, 67)
+	level.tiles[posx][posy] = 4
+	level.tileImgs[posx][posy] = 67
+	if(MultiplayerManager.isConnected()):
+		MultiplayerManager.rpc("waterLog",MultiplayerManager.in_world.find(self),posx,posy)
+	
+	_dispose()
+
 func attemptPush(displace: Vector2, blacklist):
 	blacklist.append(self)
 	var initialpos = get_position()
@@ -16,24 +47,7 @@ func attemptPush(displace: Vector2, blacklist):
 	if(get_slide_count()>0):
 		var collider = get_slide_collision(0)
 		if collider.collider.get_collision_layer_bit(1):
-			var name = collider.collider.get_name()
-			var push = get_parent().get_node(name)
-			var level = get_parent()
-			var posy
-			var posx
-			if displace.x > 0:
-				posx = int(floor((collider.position.x) / 64))
-			else:
-				posx = int(ceil((collider.position.x) / 64)) - 1
-			if displace.y >= 0:
-				posy = int(floor((collider.position.y) / 64))
-			elif displace.y < 0:
-				posy = int(floor((collider.position.y) / 64)) - 1
-			
-			push.set_cell(posx, posy, 67)
-			level.tiles[posx][posy] = 4
-			level.tileImgs[posx][posy] = 67
-			_dispose()
+			waterLog(displace, collider)
 		else:
 			set_position(initialpos)
 			var name = collider.collider.get_name()

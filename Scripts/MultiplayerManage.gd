@@ -12,7 +12,7 @@ var openingMenu;
 var listeningPlayer;
 var in_world = [];
 var itemSpawner
-var random_seed;
+var random_seed = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,6 +65,9 @@ func _connected_fail():
 remote func add_to_lobby(id: String, num: int):
 	openingMenu.set_player(id,num);
 	pass
+
+remote func waterLog(index,i,j ):
+	in_world[index].remoteWaterLog(index, i, j)
 
 remote func setSeed(Seed):
 	random_seed = Seed;
