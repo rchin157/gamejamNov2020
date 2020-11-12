@@ -4,7 +4,7 @@ extends "res://Scripts/Item.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const FUELPERLOG = 5
+const FUELPERLOG = 20
 var maxRange = 200;
 var minRange = 50;
 var tint_color;

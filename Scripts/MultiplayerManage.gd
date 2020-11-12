@@ -68,6 +68,11 @@ func _connected_fail():
 remote func cookFood(index):
 	in_world[index].setCooked();
 
+remote func movePunPun(index, position, animation):
+	var PunPun = MultiplayerManager.in_world[index]
+	PunPun.animator.set_animation(animation)
+	PunPun.set_position(position)
+
 remote func add_to_lobby(id: String, num: int):
 	openingMenu.set_player(id,num);
 	pass
