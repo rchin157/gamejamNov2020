@@ -4,9 +4,12 @@ extends "res://Scripts/LevelEntity.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const TOOLTIMEMAX = 200;
+const TOOLTIMEMAX = 3;
 var focus = [];
+
 var pfocus = null;
+var pushfocus = [];
+
 var tooltime = TOOLTIMEMAX;
 var velocity = Vector2.ZERO;
 var speed = 800;
@@ -53,18 +56,19 @@ func _process(delta):
 		else:
 			Music.toggleSong(11,false)
 		if focus.size()>0:
-			check_acting()
-			if(pushing):
+			check_acting(delta)
+			if(pushing and pushfocus.size() >0):
 				var pvelocity
 				if(facing == directions.DOWN or facing == directions.UP):
 					pvelocity = Vector2(0,velocity.y)
 				else:
 					pvelocity = Vector2(velocity.x,0)
-				pfocus.attemptPush(pvelocity,[])
+				for push in pushfocus:
+					push.attemptPush(pvelocity,[])
 		#TogglePushing
 		check_pushing()
-		depleteHunger(1)
-		updateWarmth(dwarm)
+		depleteHunger(1*delta)
+		updateWarmth(dwarm*delta)
 	pass
 
 func check_pushing():
@@ -78,17 +82,14 @@ func check_pushing():
 		
 	pass
 
-func check_acting():
+func check_acting(delta):
 	var check = Input.get_action_strength("ui_accept")
-	if !pfocus == focus[0]:
-		tooltime = TOOLTIMEMAX
-		pfocus = focus[0]
 		
 	#var check = Input.get_action_strength("ui_accept")
 	if(acting):
 		if UI != null and check and acting:
 			UI.createProgress(pfocus.get_position())
-		tooltime = pfocus.action_tick(tooltime);
+		tooltime = pfocus.action_tick(tooltime,delta);
 		if(!check):
 			tooltime = TOOLTIMEMAX;
 			acting = false;
@@ -96,7 +97,7 @@ func check_acting():
 				UI.removeProgress()
 			pfocus.actionStopped()
 	elif(check and pfocus != null):
-		tooltime = pfocus.action_tick(tooltime);
+		tooltime = pfocus.action_tick(tooltime,delta);
 		acting = true;
 	if(tooltime<=0):
 		doAct();
@@ -176,6 +177,8 @@ func get_direction()-> Vector2:
 #This runs when something is in the interactable range
 func _on_Area2D_body_entered(body):
 	focus.append(body)
+	calculateFocus();
+	calculatePush();
 	pass # Replace with function body.
 
 
@@ -185,12 +188,32 @@ func _on_Area2D_body_exited(body):
 		if UI != null:
 			UI.removeProgress();
 	focus.erase(body)
+	calculateFocus();
+	calculatePush();
 	pass # Replace with function body.
 
 func _on_warmthZone_area_entered(area):
 	print('entered lantern')
 	dwarm = campfire
 	pass # Replace with function body.
+
+func calculatePush():
+	pushfocus = []
+	for i in range(0,focus.size()):
+		if(focus[i].get_pushable()):
+			pushfocus.append(focus[i])
+
+func calculateFocus():
+	var prior = pfocus
+	pfocus = null
+	for i in range(0,focus.size()):
+		if(focus[i].get_interactable()):
+			pfocus = focus[i]
+	if prior != pfocus:
+		tooltime = TOOLTIMEMAX
+	if pfocus == null:
+		acting = false
+		
 
 
 func _on_warmthZone_area_exited(area):

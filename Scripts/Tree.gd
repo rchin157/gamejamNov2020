@@ -13,9 +13,9 @@ func _ready():
 	rng.randomize()
 	animator.frame = rng.randi_range(0, 9)
 
-func action_tick(tooltime):
+func action_tick(tooltime,delta):
 	Music.toggleSong(2,true)
-	return .action_tick(tooltime)
+	return .action_tick(tooltime,delta)
 
 func action_finish(rem: bool):
 	var drop = MultiplayerManager.itemSpawner.instance();
@@ -28,6 +28,9 @@ func action_finish(rem: bool):
 		action_finish_remote();
 	_dispose()
 	return
+
+func get_interactable():
+	return true
 
 func actionStopped():
 	Music.toggleSong(2,false)

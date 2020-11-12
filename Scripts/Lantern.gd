@@ -14,6 +14,9 @@ var fuel = maxFuel
 var state = 3
 var animator
 
+func get_pushable():
+	return true
+
 func attemptPush(displace: Vector2, blacklist):
 	print('lantern push')
 	.attemptPush(displace, blacklist)

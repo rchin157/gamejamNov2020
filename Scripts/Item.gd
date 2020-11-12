@@ -40,6 +40,9 @@ func waterLog(displace, collider):
 	
 	_dispose()
 
+func get_pushable():
+	return true
+
 func attemptPush(displace: Vector2, blacklist):
 	blacklist.append(self)
 	var initialpos = get_position()
