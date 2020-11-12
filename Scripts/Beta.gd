@@ -28,6 +28,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#print(running)
+	if numAttackers == 0:
+		influences.clear()
 	if running:
 		walkTimer = 8
 		walking = false
