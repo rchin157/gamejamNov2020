@@ -105,7 +105,8 @@ remote func update_object_position(index, px: float, py: float):
 
 remote func levelEntityAction(index):
 	print("you got mail!")
-	MultiplayerManager.level.get_node(index).action_finish(true);
+	if MultiplayerManager.level.get_node(index) != null:
+		MultiplayerManager.level.get_node(index).action_finish(true);
 	
 remote func starved():
 	activeplayer.starved()

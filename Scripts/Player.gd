@@ -101,9 +101,9 @@ func check_pushing():
 
 func updateAnimation():
 	#print(int(facing))
-	var newState = 0;
+	var newState = facing;
 	if walking:
-		newState = facing+1+int(pushing)*10
+		newState = facing+11+int(pushing)*10
 	if newState != animationState:
 		animationState = newState
 		changeState(newState)
@@ -111,27 +111,26 @@ func updateAnimation():
 	pass
 
 func changeState(state):
-	if state == 0:
+	if state <= 6:
 		animator.stop()
-		animator.set_animation("walkDown")
 	else:
 		animator.play()
 		match state:
-			1:
+			0,11:
 				animator.set_animation("walkUp")
-			2:
+			1,12:
 				animator.set_animation("walkDown")
-			3:
+			2,13:
 				animator.set_animation("walkLeft")
-			4:
+			3,14:
 				animator.set_animation("walkRight")
-			11:
+			21:
 				animator.set_animation("pushUp")
-			12:
+			22:
 				animator.set_animation("pushDown")
-			13:
+			23:
 				animator.set_animation("pushLeft")
-			14:
+			24:
 				animator.set_animation("pushRight")
 	animator.set_frame(0)	
 		
