@@ -38,6 +38,7 @@ func gotoLobby(server: bool):
 		set_player(MultiplayerManager.id, 0, color)
 
 func _on_Host_Button_pressed():
+	color = get_node("ConnectScreen/Color").get_picker().color
 	MultiplayerManager.createServer()
 	gotoLobby(true);
 	
@@ -51,7 +52,10 @@ func set_player(id: String, num: int, color: Color):
 	
 
 func _on_Connect_Button_pressed():
+	color = get_node("ConnectScreen/Color").get_picker().color
 	MultiplayerManager.createClient(ip_input.get_text())
+	MultiplayerManager.names[1] = MultiplayerManager.id
+	MultiplayerManager.colorList[1] = color
 	#Run a check to ensure that the server is valid first
 	gotoLobby(false);
 	
