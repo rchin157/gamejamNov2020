@@ -116,6 +116,13 @@ func action_finish(rem: bool):
 #	var drop = MultiplayerManager.itemSpawner.instance();
 #	drop.set_position(get_position())
 #	get_parent().add_child(drop)
+	var drop = MultiplayerManager.itemSpawner.instance();
+	var pos = get_position()
+	pos.y += 32
+	drop.set_position(pos)
+	drop.toggleFood()
+	get_parent().add_child(drop)
+	
 	Music.toggleSong(6,false)
 	if(MultiplayerManager.isConnected() and !rem):
 		action_finish_remote();

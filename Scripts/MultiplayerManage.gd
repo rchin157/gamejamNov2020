@@ -10,6 +10,7 @@ var port = 25565;
 var is_server = false;
 var openingMenu;
 var listeningPlayer;
+var activeplayer;
 var in_world = [];
 var itemSpawner
 var random_seed = 0;
@@ -64,9 +65,15 @@ func _server_disconnected():
 func _connected_fail():
 	pass # Could not even connect to server; abort.
 
+remote func cookFood(index):
+	in_world[index].setCooked();
+
 remote func add_to_lobby(id: String, num: int):
 	openingMenu.set_player(id,num);
 	pass
+
+remote func dispose(index):
+	in_world[index]._dispose();
 
 remote func waterLog(index,i,j ):
 	in_world[index].remoteWaterLog(index, i, j)

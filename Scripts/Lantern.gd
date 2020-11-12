@@ -12,7 +12,6 @@ var shape
 var maxFuel = 20.0
 var fuel = maxFuel
 var state = 3
-var animator
 
 func get_pushable():
 	return true

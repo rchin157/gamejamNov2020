@@ -28,7 +28,12 @@ func attemptPush(displace: Vector2, blacklist):
 
 func actionStopped():
 	pass
-	
+#Disposes locally and remotely
+func remote_dispose():
+	var index = MultiplayerManager.in_world.find(self)
+	MultiplayerManager.rpc("dispose",index)
+	_dispose()
+
 func action_finish_remote():
 	var index = MultiplayerManager.in_world.find(self)
 	if(MultiplayerManager.isConnected()):

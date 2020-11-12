@@ -4,9 +4,15 @@ extends "res://Scripts/LevelEntity.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var food = false
+var cooked = false;
+var cooking = false;
+var foodtime = 5;
+var eatCD = 2;
+var animator
 
 func _ready():
+	animator = get_node("AnimatedSprite")
 	pass # Replace with function body.
 
 func remoteWaterLog(index, i, j):
@@ -16,6 +22,18 @@ func remoteWaterLog(index, i, j):
 	level.tilemap.set_cell(i, j, 67)
 	MultiplayerManager.in_world[index]._dispose()
 	pass
+
+func setCooked():
+	cooked = true;
+	animator.set_frame(1)
+	
+
+func toggleFood():
+	animator = get_node("AnimatedSprite")
+	animator.stop();
+	animator.set_animation("meat")
+	animator.set_frame(0)
+	food = true
 
 func waterLog(displace, collider):
 	var name = collider.collider.get_name()
@@ -40,8 +58,33 @@ func waterLog(displace, collider):
 	
 	_dispose()
 
+func _process(delta):
+	if food:
+		eatCD-=delta
+		if(eatCD<0):
+			eatCD = 0
+	if cooking:
+		foodtime-=delta
+		if(foodtime<=0):
+			remoteCooked()
+
+func action_tick(tooltime,delta):
+	if eatCD <= 0:
+		MultiplayerManager.activeplayer.eatFood(cooked)
+		remote_dispose()
+	return(tooltime)
+
+func remoteCooked():
+	setCooked();
+	var index = MultiplayerManager.in_world.find(self)
+	if(MultiplayerManager.isConnected()):
+		MultiplayerManager.rpc("cookFood",index)
+
 func get_pushable():
 	return true
+	
+func get_interactable():
+	return food
 
 func attemptPush(displace: Vector2, blacklist):
 	blacklist.append(self)
@@ -49,7 +92,7 @@ func attemptPush(displace: Vector2, blacklist):
 	var initialColl = move_and_slide(displace)
 	if(get_slide_count()>0):
 		var collider = get_slide_collision(0)
-		if collider.collider.get_collision_layer_bit(1):
+		if collider.collider.get_collision_layer_bit(1) and !food:
 			waterLog(displace, collider)
 			return
 		else:
@@ -62,9 +105,16 @@ func attemptPush(displace: Vector2, blacklist):
 			move_and_slide(displace)
 	if(initialpos != get_position()):
 		sendPositionDelta()
-	#if(initialColl != null):
-		#var collisionName = (initialColl as Node).get_name()
-		#var collision = get_parent().get_child(collisionName)
-		#set_position(initialpos)
-	#	collision.attemptPush(displace)
-		#move_and_collide(displace)
+
+
+
+func _on_Cooking_area_entered(area):
+	if food:
+		cooking = true
+	pass # Replace with function body.
+
+
+func _on_Cooking_area_exited(area):
+	if food:
+		cooking = false
+	pass # Replace with function body.
