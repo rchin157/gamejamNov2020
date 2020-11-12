@@ -26,7 +26,7 @@ shape = SubResource( 2 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "idleRight"
-frame = 10
+frame = 25
 playing = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

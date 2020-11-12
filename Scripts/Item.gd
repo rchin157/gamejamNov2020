@@ -48,6 +48,7 @@ func attemptPush(displace: Vector2, blacklist):
 		var collider = get_slide_collision(0)
 		if collider.collider.get_collision_layer_bit(1):
 			waterLog(displace, collider)
+			return
 		else:
 			set_position(initialpos)
 			var name = collider.collider.get_name()
