@@ -101,4 +101,19 @@ func togglewalk():
 			animator.set_animation("walkRight")
 		walking = true
 		walkTimer = 2
-		
+
+func action_tick(tooltime):
+	Music.toggleSong(6,true)
+	return .action_tick(tooltime)
+
+func action_finish():
+	print('generic task complete notification')
+#	var drop = MultiplayerManager.itemSpawner.instance();
+#	drop.set_position(get_position())
+#	get_parent().add_child(drop)
+	Music.toggleSong(6,false)
+	_dispose()
+	return
+
+func actionStopped():
+	Music.toggleSong(6,false)
