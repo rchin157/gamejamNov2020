@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Tree.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/trees/trees.tres" type="SpriteFrames" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 31.2413, 32.3437 )
 
 [node name="KinematicBody" type="KinematicBody2D"]
 collision_layer = 4
@@ -19,3 +22,12 @@ speed_scale = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 32 )
 shape = SubResource( 1 )
+
+[node name="KINO" type="Area2D" parent="."]
+position = Vector2( 0, 32 )
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KINO"]
+shape = SubResource( 2 )
+[connection signal="area_entered" from="KINO" to="." method="_on_KINO_area_entered"]

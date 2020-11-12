@@ -57,3 +57,9 @@ func actionStopped():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_KINO_area_entered(area):
+	if animator.get_frame() == 8:
+		get_tree().change_scene("res://Level/Win.tscn");
+		pass # Replace with function body.

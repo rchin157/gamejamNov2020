@@ -20,7 +20,7 @@ script = ExtResource( 1 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "off"
-frame = 9
+frame = 5
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -35,7 +35,7 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 2 )
 
 [node name="Refueling" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 256
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Refueling"]
