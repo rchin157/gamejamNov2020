@@ -56,8 +56,8 @@ func attemptPush(displace: Vector2, blacklist):
 			if(blacklist.find(push) == -1):
 				push.attemptPush(displace,blacklist);
 			move_and_slide(displace)
-			if(initialpos != get_position()):
-				sendPositionDelta()
+	if(initialpos != get_position()):
+		sendPositionDelta()
 	#if(initialColl != null):
 		#var collisionName = (initialColl as Node).get_name()
 		#var collision = get_parent().get_child(collisionName)
