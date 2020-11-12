@@ -76,6 +76,9 @@ func _process(delta):
 		check_pushing()
 		depleteHunger(1*delta)
 		updateWarmth(dwarm*delta)
+		if get_position().x < 64:
+			MultiplayerManager.rpc("leftBehind")
+			fellBehind()
 	pass
 
 func check_pushing():
@@ -127,10 +130,16 @@ func depleteHunger(amount):
 		hunger = maxHunger
 	if(hunger<0):
 		hunger = 0
+		MultiplayerManager.rpc("starved")
+		starved()
 	var checkstate = 9-(hunger/(maxHunger/9))
 	if(checkstate != hungerState and UI != null):
 		UI.updateHunger(checkstate)
 		hungerState = checkstate
+		
+func starved():
+	MultiplayerManager.loseCondtion = 0
+	get_tree().change_scene("res://Level/Lose.tscn")
 
 func updateWarmth(amount):
 	warmth+=amount
@@ -138,12 +147,16 @@ func updateWarmth(amount):
 		warmth = MAXWARMTH
 	if(warmth<0):
 		warmth = 0
+		MultiplayerManager.rpc("froze")
+		frozen()
 	var checkstate = 9-(warmth/(MAXWARMTH/9))
 	if(checkstate != warmthState and UI != null):
 		UI.updateWarmth(checkstate)
 		warmthState = checkstate
 
-
+func frozen():
+	MultiplayerManager.loseCondtion = 1
+	get_tree().change_scene("res://Level/Lose.tscn")
 
 func calculate_dir(dir: Vector2):
 	var prior = facing;
@@ -179,6 +192,10 @@ func updateInteract(dir):
 func update_position(px: float, py: float):
 	set_position(Vector2(px,py));
 	pass;
+	
+func fellBehind():
+	MultiplayerManager.loseCondtion = 2
+	get_tree().change_scene("res://Level/Lose.tscn")
 
 func set_local(set: bool):
 	local = set;

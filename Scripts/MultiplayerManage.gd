@@ -16,7 +16,7 @@ var itemSpawner
 var level = null;
 var random_seed = 0;
 var loseCondtion = 0
-var endingText = ["You starved to death", "You froze to death", "You got left behind"]
+var endingText = ["One of you starved to death", "One of you froze to death", "One of you got left behind"]
 var colorList = [Color(1,1,1),Color(1,1,1)];
 var names = ["basic","basic"]
 
@@ -101,6 +101,15 @@ remote func update_object_position(index, px: float, py: float):
 remote func levelEntityAction(index):
 	print("you got mail!")
 	MultiplayerManager.level.get_node(index).action_finish(true);
+	
+remote func starved():
+	activeplayer.starved()
+	
+remote func froze():
+	activeplayer.froze()
+	
+remote func leftBehind():
+	activeplayer.fellBehind()
 
 remote func toggleSound(index, state):
 	if(state):
