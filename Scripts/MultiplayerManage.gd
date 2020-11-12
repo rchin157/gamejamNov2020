@@ -54,7 +54,7 @@ func _player_connected(gid):
 		rpc("setSeed",random_seed)
 	else:
 		rpc("add_to_lobby",id,1, colorList[1])
-		openingMenu.set_player(id,1);		
+		openingMenu.set_player(id,1,colorList[1]);		
 
 func _player_disconnected(gid):
 	pass
