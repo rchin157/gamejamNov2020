@@ -11,7 +11,7 @@ var currentScroll = 0
 var levelHeight = 12
 var levelWidth = 44
 var cellwidth = 64
-var scrollPeriod = 8
+var scrollPeriod = 1
 var cellsPassed = 24
 
 var noise = OpenSimplexNoise.new()
@@ -26,8 +26,9 @@ var setPieceProgress = 20
 
 onready var tilemap = get_node("TileMap")
 onready var camera = get_node("Camera2D")
-onready var ui = get_node("Camera2D/Player UI")
+onready var ui = get_node("KinematicBody2D2/Player UI")
 onready var player = get_node("Player2")
+onready var uiPrnt = get_node("KinematicBody2D2")
 
 #Fuck me
 var TLW = [19]
@@ -83,23 +84,37 @@ var island1 = [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
 				[1,1,1,1,1,1,1,1,1,0,0,0], [1,1,1,1,1,1,1,1,1,0,0,0],
 				[1,1,1,1,1,1,1,0,1,1,0,0], [0,0,0,0,0,0,0,0,1,1,0,0],
 				[1,0,0,0,0,0,0,1,1,1,1,0], [0,0,0,0,0,0,0,0,0,0,0,0]]
-var island2 = [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]]
+var island2 = [[2,2,2,0,0,0,0,0,0,0,0,0], 
+				[2,2,0,0,0,0,0,0,0,1,1,1],
+				[2,0,0,0,0,0,0,1,1,1,1,1], 
+				[0,0,0,1,1,1,1,1,2,2,2,2],
+				[0,0,1,1,1,1,1,2,2,2,2,2], 
+				[0,0,0,0,1,0,2,2,2,2,2,2],
+				[0,0,0,0,2,2,2,2,2,2,2,2], 
+				[0,0,0,0,2,2,2,0,0,2,2,2],
+				[0,0,0,2,2,2,2,0,0,2,2,2], 
+				[0,0,0,2,2,2,2,0,2,2,2,2],
+				[0,0,0,0,2,2,2,2,2,2,2,2], 
+				[0,0,0,0,2,2,2,2,0,2,2,2],
+				[0,0,0,0,0,2,2,2,2,2,2,2], 
+				[0,0,0,0,0,0,0,1,1,1,1,1],
+				[1,0,0,0,0,0,0,0,1,1,1,1], 
+				[1,1,1,0,0,0,0,0,0,1,1,1],
+				[1,1,1,0,0,0,0,0,0,1,1,1], 
+				[1,1,1,1,0,0,0,0,0,1,1,1],
+				[1,1,1,1,0,0,0,0,0,0,1,1], 
+				[1,1,1,1,0,0,0,0,0,0,1,1],
+				[2,1,1,1,0,0,0,0,0,0,1,1], 
+				[2,2,1,1,0,0,0,0,0,0,0,1]]
 				
 var setPieces = [spawnset, island1, island2]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rng.seed = MultiplayerManager.random_seed
+	if MultiplayerManager.random_seed != null:
+		rng.seed = MultiplayerManager.random_seed
+	else:
+		rng.seed = 0
 	initNoise()
 	generateInitialTiles()
 	if(MultiplayerManager.is_server):
@@ -111,16 +126,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var step = 0 #delta / scrollPeriod * cellwidth
+	var step = delta / scrollPeriod * cellwidth
 	currentScroll += step
 	if currentScroll >= cellwidth:
 		newColumn()
 		snap(currentScroll)
-		camera.position -= Vector2(currentScroll,0)
 		currentScroll = 0
-	#camera.offset = Vector2(currentScroll, 0)
-	camera.position += Vector2(step, 0)
-	
+	camera.offset = Vector2(currentScroll, 0)
+	uiPrnt.position = Vector2(currentScroll, 0)
 
 func generateInitialTiles():
 	for i in range(levelWidth):
@@ -154,8 +167,11 @@ func generateInitialTiles():
 			
 
 func newColumn():
+	var shuffleWidth = 24
+	if isSetPiece:
+		shuffleWidth = levelWidth
 	var front = levelWidth - 20
-	for i in range(levelWidth - 1):
+	for i in range(shuffleWidth - 1):
 		for j in range(levelHeight):
 			tiles[i][j] = tiles[i + 1][j]
 			tileImgs[i][j] = tileImgs[i + 1][j]
@@ -188,8 +204,9 @@ func newColumn():
 			tilemap.set_cell(front - 2,j,watertile) 
 	cellsPassed += 1
 	if cellsPassed % 40 == 0: #and rng.randi() % 2 == 0:
-		print("SETPIECE ADDED")
-		addSetpiece(1)
+		#print("SETPIECE ADDED")
+		#addSetpiece(rng.randi_range(1,2))
+		addSetpiece(2)
 		isSetPiece = true
 		setPieceProgress = 20
 
@@ -259,7 +276,7 @@ func initNoise():
 	randgen.randomize()
 	noise.seed = 0
 	noise.lacunarity = 2.0
-	noise.octaves = 3
+	noise.octaves = 2
 	noise.period = 13.0
 	noise.persistence = 0.8
 
@@ -293,7 +310,7 @@ func addSetpiece(id):
 		for j in range(levelHeight):
 			tiles[i][j] = setPieces[id][i - start][j]
 			tileImgs[i][j] = tileImgSelect(tiles[i][j])
-			print(tileImgs[i][j])
+			#print(tileImgs[i][j])
 			tilemap.set_cell(i, j, tileImgs[i][j])
 	renderSetpiece()
 

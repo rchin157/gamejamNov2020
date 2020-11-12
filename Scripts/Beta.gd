@@ -68,6 +68,7 @@ func _on_Area2D_body_exited(body):
 	numAttackers -= 1
 	if numAttackers <= 0:
 		numAttackers = 0
+		influences.clear()
 		running = false
 		if facingRight:
 			animator.set_animation("idleRight")

@@ -1560,12 +1560,6 @@ anchor_mode = 0
 current = true
 zoom = Vector2( 1.28, 1.28 )
 
-[node name="Player UI" parent="Camera2D" instance=ExtResource( 5 )]
-margin_left = 306.0
-margin_top = -12.0
-margin_right = 306.0
-margin_bottom = -12.0
-
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 174.097, 166.537 )
 
@@ -1591,3 +1585,12 @@ shape = SubResource( 49 )
 
 [node name="Lantern" parent="." instance=ExtResource( 6 )]
 position = Vector2( 183, 271 )
+
+[node name="KinematicBody2D2" type="KinematicBody2D" parent="."]
+z_index = 2
+
+[node name="Player UI" parent="KinematicBody2D2" instance=ExtResource( 5 )]
+margin_left = 306.0
+margin_top = -12.0
+margin_right = 306.0
+margin_bottom = -12.0
