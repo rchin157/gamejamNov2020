@@ -88,7 +88,7 @@ func togglewalk():
 			passiveDirection = Vector2.LEFT
 		elif passiveDirection == Vector2.LEFT:
 			passiveDirection = Vector2.UP
-		else:
+		elif passiveDirection == Vector2.UP:
 			passiveDirection = Vector2.RIGHT
 	else:
 		if passiveDirection == Vector2.RIGHT:
