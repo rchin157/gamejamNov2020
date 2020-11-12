@@ -24,6 +24,8 @@ func _ready():
 	passiveDirection = Vector2.LEFT
 	pass # Replace with function body.
 
+func get_interactable():
+	return true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -105,9 +107,9 @@ func togglewalk():
 		walking = true
 		walkTimer = 2
 
-func action_tick(tooltime):
+func action_tick(tooltime,delta):
 	Music.toggleSong(6,true)
-	return .action_tick(tooltime)
+	return .action_tick(tooltime,delta)
 
 func action_finish(rem: bool):
 	print('generic task complete notification')

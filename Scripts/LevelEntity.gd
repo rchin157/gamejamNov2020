@@ -16,8 +16,8 @@ func _dispose():
 	MultiplayerManager.in_world.erase(self)
 	queue_free();
 	
-func action_tick(tooltime):
-	return tooltime-1
+func action_tick(tooltime,delta):
+	return tooltime-delta
 
 func action_finish(rem: bool):
 	print('generic task complete notification')
@@ -42,6 +42,13 @@ func sendPositionDelta():
 
 func _exit_tree():
 	_dispose();
+
+func get_pushable():
+	return false
+	
+
+func get_interactable():
+	return false
 
 func bounce_back(step :float):
 	set_position(Vector2(get_position().x+step,get_position().y))
