@@ -115,6 +115,7 @@ func _ready():
 		rng.seed = MultiplayerManager.random_seed
 	else:
 		rng.seed = 0
+	print(rng.seed)
 	initNoise()
 	generateInitialTiles()
 	if(MultiplayerManager.is_server):
@@ -272,9 +273,7 @@ func checkWater(i: int, j: int):
 	return -1;
 
 func initNoise():
-	var randgen = RandomNumberGenerator.new()
-	randgen.randomize()
-	noise.seed = 0
+	noise.seed = rng.randi()
 	noise.lacunarity = 2.0
 	noise.octaves = 2
 	noise.period = 13.0
