@@ -4,12 +4,12 @@ extends "res://Scripts/Item.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const FUELPERLOG = 20
-var maxRange = 200;
-var minRange = 50;
+const FUELPERLOG = 40
+var maxRange = 250;
+var minRange = 100;
 var tint_color;
 var shape
-var maxFuel = 20.0
+var maxFuel = 80
 var fuel = maxFuel
 var state = 3
 
@@ -29,7 +29,8 @@ func _ready():
 	animator = get_node("AnimatedSprite")
 	animator.set_animation("high")
 	shape = get_node("Area2D/CollisionShape2D").get_shape()
-	tint_color = Color(1,0,0,0.10)
+	tint_color = Color8(255,153,0)
+	tint_color.a = 0.1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if fuel > 0:

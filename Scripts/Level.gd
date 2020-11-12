@@ -127,6 +127,7 @@ func _ready():
 		player = get_node("Player2")
 	MultiplayerManager.listeningPlayer.local= false;
 	MultiplayerManager.activeplayer = player
+	
 	player.UI = ui
 	
 	#AAAAAAAAAA
@@ -134,7 +135,9 @@ func _ready():
 	get_node("Player").setName(MultiplayerManager.names[0])
 	get_node("Player2/AnimatedSprite").set_modulate(MultiplayerManager.colorList[1])
 	get_node("Player2").setName(MultiplayerManager.names[1])
-
+	
+	if !MultiplayerManager.isConnected():
+		remove_child(MultiplayerManager.listeningPlayer)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var step = delta / scrollPeriod * cellwidth

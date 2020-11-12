@@ -12,7 +12,7 @@ var pushfocus = [];
 
 var tooltime = TOOLTIMEMAX;
 var velocity = Vector2.ZERO;
-var speed = 800;
+var speed = 200;
 var local = true;
 enum directions {UP, DOWN, LEFT, RIGHT}
 var facing = directions.DOWN;
@@ -24,16 +24,19 @@ var pushing = false
 var UI = null
 
 #variables for hunger
-var maxHunger = 60;
+var maxHunger = 120;
 var hunger = maxHunger
 var hungerState= 8;
-const RAWFOOD = 5
-const COOKFOOD = 20
+const RAWFOOD = 60
+const COOKFOOD = 120
+var walking = false;
+var animationState = 0;
+var animator
 
 #variables used for warmth
 const PASSIVECOOLING = -1
-var campfire = 5
-const MAXWARMTH = 60
+var campfire = 20
+const MAXWARMTH = 120
 var warmth = MAXWARMTH
 var dwarm = PASSIVECOOLING
 var warmthState = 8
@@ -44,6 +47,7 @@ var nametag
 func _ready():
 	nametag = get_node("Name")
 	interact_collide = get_node("Area2D/Interact");
+	animator = get_node("AnimatedSprite")
 	pass # Replace with function body.
 
 func setName(name):
@@ -56,11 +60,13 @@ func _process(delta):
 		calculate_dir(direction)
 		velocity = direction*speed;
 		if(velocity.length()>0):
+			walking = true;
 			Music.toggleSong(11,true)
 			move_and_slide(velocity)
 			if(MultiplayerManager.isConnected()):
 				MultiplayerManager.rpc_unreliable("update_player_pos",get_position().x,get_position().y)
 		else:
+			walking = false;
 			Music.toggleSong(11,false)
 		if focus.size()>0:
 			check_acting(delta)
@@ -76,6 +82,7 @@ func _process(delta):
 		check_pushing()
 		depleteHunger(1*delta)
 		updateWarmth(dwarm*delta)
+		updateAnimation();
 	pass
 
 func check_pushing():
@@ -88,6 +95,43 @@ func check_pushing():
 		set_collision_mask_bit(3,false)
 		
 	pass
+
+func updateAnimation():
+	#print(int(facing))
+	var newState = 0;
+	if walking:
+		newState = facing+1+int(pushing)*10
+	if newState != animationState:
+		animationState = newState
+		changeState(newState)
+		MultiplayerManager.rpc("updatePlayerAnimation",newState)
+	pass
+
+func changeState(state):
+	if state == 0:
+		animator.stop()
+		animator.set_animation("walkDown")
+	else:
+		animator.play()
+		match state:
+			1:
+				animator.set_animation("walkUp")
+			2:
+				animator.set_animation("walkDown")
+			3:
+				animator.set_animation("walkLeft")
+			4:
+				animator.set_animation("walkRight")
+			11:
+				animator.set_animation("pushUp")
+			12:
+				animator.set_animation("pushDown")
+			13:
+				animator.set_animation("pushLeft")
+			14:
+				animator.set_animation("pushRight")
+	animator.set_frame(0)	
+		
 
 func check_acting(delta):
 	var check = Input.get_action_strength("ui_accept")
