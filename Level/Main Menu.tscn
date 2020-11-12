@@ -1,4 +1,7 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/logo.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Sprites/SOUL.png" type="Texture" id=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -6,3 +9,27 @@ anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 4, 4.2 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 944.35, 584.301 )
+scale = Vector2( 3, 3 )
+frames = ExtResource( 1 )
+frame = 29
+playing = true
+
+[node name="start" type="Button" parent="."]
+margin_right = 12.0
+margin_bottom = 20.0
+
+[node name="Button" type="Button" parent="."]
+margin_right = 12.0
+margin_bottom = 20.0
