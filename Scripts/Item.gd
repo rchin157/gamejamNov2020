@@ -118,12 +118,12 @@ func attemptPush(displace: Vector2, blacklist):
 func _on_Cooking_area_entered(area):
 	if food:
 		cooking = true
-	Music.toggleSong(4, true)
+		Music.toggleSong(4, true)
 	pass # Replace with function body.
 
 
 func _on_Cooking_area_exited(area):
 	if food:
 		cooking = false
-	Music.toggleSong(4, false)
+		Music.toggleSong(4, false)
 	pass # Replace with function body.
