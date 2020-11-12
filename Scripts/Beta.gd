@@ -115,6 +115,8 @@ func action_finish(rem: bool):
 #	drop.set_position(get_position())
 #	get_parent().add_child(drop)
 	Music.toggleSong(6,false)
+	if(MultiplayerManager.isConnected() and !rem):
+		action_finish_remote();
 	_dispose()
 	return
 
