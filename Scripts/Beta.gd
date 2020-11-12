@@ -47,14 +47,18 @@ func _process(delta):
 				animator.set_animation("chaseRight")
 				facingRight = true
 			move_and_slide(direction)
+			if(MultiplayerManager.isConnected()):
+				var index = get_name()
+				MultiplayerManager.rpc("movePunPun",index,get_position(),animator.get_animation())
 		walkTimer -= delta
 		if walkTimer <= 0:
 			togglewalk()
 		if walking:
 			move_and_slide(passiveDirection * (speed / 3))
-		if(MultiplayerManager.isConnected()):
-			var index = get_name()
-			MultiplayerManager.rpc("movePunPun",index,get_position(),animator.get_animation())
+			if(MultiplayerManager.isConnected()):
+				var index = get_name()
+				MultiplayerManager.rpc("movePunPun",index,get_position(),animator.get_animation())
+		
 
 
 func _on_Area2D_body_entered(body):
