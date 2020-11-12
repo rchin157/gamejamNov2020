@@ -23,7 +23,7 @@ func action_finish():
 	print('generic task complete notification')
 	return
 
-func attemptPush(displace: Vector2):
+func attemptPush(displace: Vector2, blacklist):
 	pass
 
 func actionStopped():

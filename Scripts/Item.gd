@@ -9,7 +9,8 @@ extends "res://Scripts/LevelEntity.gd"
 func _ready():
 	pass # Replace with function body.
 
-func attemptPush(displace: Vector2):
+func attemptPush(displace: Vector2, blacklist):
+	blacklist.append(self)
 	var initialpos = get_position()
 	var initialColl = move_and_slide(displace)
 	if(get_slide_count()>0):
@@ -38,7 +39,8 @@ func attemptPush(displace: Vector2):
 			var name = collider.collider.get_name()
 			var push = get_parent().get_node(name)
 			#print(push.get_class())
-			push.attemptPush(displace);
+			if(blacklist.find(push) == -1):
+				push.attemptPush(displace,blacklist);
 			move_and_slide(displace)
 	#if(initialColl != null):
 		#var collisionName = (initialColl as Node).get_name()
