@@ -13,7 +13,7 @@ onready var btn = get_node("Button")
 func _ready():
 	animator.frame = 0
 	Music.stopAll()
-	Music.toggleSong(1, true)
+	Music.playSFX(7)
 	pass # Replace with function body.
 
 
@@ -26,6 +26,6 @@ func _process(delta):
 
 
 func _on_Button_pressed():
-	Music.toggleSong(1, false)
+	Music.stopSFX(7)
 	get_tree().change_scene("res://Level/Main Menu.tscn")
 	pass # Replace with function body.

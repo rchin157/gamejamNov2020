@@ -10,7 +10,7 @@ onready var txt = get_node("RichTextLabel")
 func _ready():
 	txt.text = MultiplayerManager.endingText[MultiplayerManager.loseCondtion]
 	Music.stopAll()
-	Music.toggleSong(5, true)
+	Music.playSFX(6)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,6 +19,6 @@ func _ready():
 
 
 func _on_Button_pressed():
-	Music.toggleSong(5, false)
+	Music.stopSFX(6)
 	get_tree().change_scene("res://Level/Main Menu.tscn")
 	pass # Replace with function body.

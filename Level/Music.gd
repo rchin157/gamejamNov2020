@@ -33,6 +33,9 @@ func _ready():
 		get_node("Meat Cooked"),
 		get_node("Punpun Dies"),
 		get_node("Tree Fall"),
+		get_node("Game Over"),
+		get_node("Burning Heart"),
+		get_node("Title")
 	]
 	
 	pass # Replace with function body.
@@ -53,7 +56,10 @@ func remoteToggle(index: int, state: bool):
 	MultiplayerManager.rpc("toggleSound",index, state)
 
 func playSFX(index:int):
-	sfxArray[index].play()
+	sfxArray[index].play(0)
+	
+func stopSFX(index):
+	sfxArray[index].stop()
 
 func enableSong(index: int):
 	musicArray[index].play(musicArray[0].get_playback_position())

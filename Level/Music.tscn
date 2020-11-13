@@ -25,6 +25,8 @@ script = ExtResource( 13 )
 
 [node name="WHACK" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+volume_db = -80.0
+autoplay = true
 
 [node name="Burning Heart" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
