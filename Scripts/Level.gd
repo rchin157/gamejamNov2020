@@ -202,6 +202,7 @@ func newColumn():
 			tilemap.set_cell(i, j, tileImgs[i][j])
 	if isSetPiece:
 		setPieceProgress -= 1
+		cellsPassed += 1
 		if setPieceProgress == 0:
 			isSetPiece = false
 		return
@@ -298,7 +299,7 @@ func initNoise():
 	noise.seed = rng.randi()
 	noise.lacunarity = 2.0
 	noise.octaves = 3
-	noise.period = 12.0
+	noise.period = 10.0
 	noise.persistence = 0.8
 
 func tileBias(val):
