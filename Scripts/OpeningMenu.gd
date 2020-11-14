@@ -15,6 +15,7 @@ var color = Color(0,0,0);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MultiplayerManager.truegame = true
 	ip_input = get_node("ConnectScreen/Ip_Input");
 	name_input = get_node("ConnectScreen/Name_Input");
 	connectScreen = get_node("ConnectScreen")

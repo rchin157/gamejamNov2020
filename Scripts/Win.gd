@@ -8,10 +8,13 @@ extends Control
 onready var animator = get_node("AnimatedSprite")
 onready var txt = get_node("RichTextLabel")
 onready var btn = get_node("Button")
+onready var particle = get_node("KINO")
+var currentFrame = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	MultiplayerManager.game_ended(true)
+	if MultiplayerManager.truegame:
+		MultiplayerManager.game_ended(true)
 	animator.frame = 0
 	Music.stopAll()
 	Music.playSFX(7)
@@ -20,11 +23,18 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if animator.frame == 11:
-		txt.show()
-		btn.show()
+	if animator.frame != currentFrame:
+		currentFrame = animator.frame
+		changeFrame(currentFrame)
 	pass
 
+func changeFrame(frame: int):
+	particle.show()
+	particle.set_amount(frame*10)
+	if frame == 11:
+		particle.hide()
+		txt.show()
+		btn.show()
 
 func _on_Button_pressed():
 	Music.stopSFX(7)

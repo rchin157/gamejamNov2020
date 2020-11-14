@@ -22,6 +22,7 @@ var colorList = [Color(1,1,1),Color(1,1,1)];
 var names = ["basic","basic"]
 
 #BIG PP Variables
+var truegame = false;
 var wins
 var distance_travelled
 var longest_d

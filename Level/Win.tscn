@@ -33,7 +33,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 4, 4.2 )
 frames = ExtResource( 4 )
-frame = 11
+frame = 8
 playing = true
 centered = false
 
@@ -65,4 +65,17 @@ text = "Return to Main"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="KINO" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2( 537.148, 272.282 )
+amount = 5
+emission_shape = 1
+emission_sphere_radius = 53.64
+gravity = Vector2( 0, -98 )
+initial_velocity = 80.65
+initial_velocity_random = 1.0
+scale_amount = 3.0
+scale_amount_random = 1.0
+color = Color( 1, 0.607843, 0, 1 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
