@@ -40,7 +40,7 @@ __meta__ = {
 position = Vector2( 944.35, 584.301 )
 scale = Vector2( 3, 3 )
 frames = ExtResource( 1 )
-frame = 81
+frame = 85
 playing = true
 
 [node name="start" type="Button" parent="."]
@@ -50,6 +50,20 @@ margin_right = 365.0
 margin_bottom = 373.269
 custom_fonts/font = SubResource( 1 )
 text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stats" type="Button" parent="."]
+margin_left = 165.0
+margin_top = 467.269
+margin_right = 365.0
+margin_bottom = 517.269
+custom_fonts/font = SubResource( 1 )
+text = "Qinoo Qount"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="info" type="Button" parent="."]
 margin_left = 165.0
@@ -72,4 +86,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="stats" to="." method="_on_stats_pressed"]
 [connection signal="pressed" from="info" to="." method="_on_info_pressed"]

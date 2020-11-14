@@ -33,7 +33,7 @@ func getTreeFrame():
 		return 7
 
 func _dispose():
-	Music.playSFX(5)
+	
 	._dispose()
 
 func action_tick(tooltime,delta):
@@ -49,6 +49,9 @@ func action_finish(rem: bool):
 	Music.toggleSong(2,false)
 	if(MultiplayerManager.isConnected() and !rem):
 		action_finish_remote();
+	if !rem:
+		MultiplayerManager.treeChop +=1
+	Music.playSFX(5)
 	_dispose()
 	return
 

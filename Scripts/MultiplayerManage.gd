@@ -21,6 +21,20 @@ var endingText = ["One of you starved to death", "One of you froze to death", "O
 var colorList = [Color(1,1,1),Color(1,1,1)];
 var names = ["basic","basic"]
 
+#BIG PP Variables
+var wins
+var distance_travelled
+var longest_d
+var foods_cooked
+var deaths
+var missP
+var Pded
+var treeChop
+
+#Spaghett
+var cellsPassed = 24
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().connect("network_peer_connected",self,"_player_connected")
@@ -29,8 +43,14 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	itemSpawner = preload("res://Entities/Item.tscn")
+	read_PP_file()
+	print(treeChop)
+	
 func set_id(name: String):
 	id = name
+
+
+
 
 func createServer(port: int):
 	peer = NetworkedMultiplayerENet.new();
@@ -83,6 +103,54 @@ remote func movePunPun(index, position, animation):
 		if PunPun != null:
 			PunPun.animator.set_animation(animation)
 			PunPun.set_position(position)
+
+func game_ended(win: bool):
+	if(win):
+		MultiplayerManager.wins+=1
+	else:
+		deaths+=1
+	distance_travelled+=cellsPassed
+	if(cellsPassed > longest_d):
+		longest_d = cellsPassed
+	write_PP()
+	
+
+func write_PP():
+	var PP = File.new()
+	PP.open("user://savegame.save",File.WRITE)
+	PP.store_32(wins)
+	PP.store_32(distance_travelled)
+	PP.store_32(longest_d)
+	PP.store_32(foods_cooked)
+	PP.store_32(deaths)
+	PP.store_32(missP)
+	PP.store_32(Pded)
+	PP.store_32(treeChop)
+	PP.close()
+
+func read_PP_file():
+	var PP = File.new()
+	if PP.file_exists("user://savegame.save"):
+		PP.open("user://savegame.save",File.READ)
+		wins = PP.get_32()
+		distance_travelled = PP.get_32()
+		longest_d = PP.get_32()
+		foods_cooked = PP.get_32()
+		deaths = PP.get_32()
+		missP = PP.get_32()
+		Pded = PP.get_32()
+		treeChop = PP.get_32()
+		PP.close()
+	else:
+		wins = 0
+		distance_travelled = 0
+		longest_d = 0
+		foods_cooked = 0
+		deaths = 0
+		missP = 0
+		Pded = 0
+		treeChop = 0
+	pass
 
 remote func add_to_lobby(id: String, num: int, color):
 	connected = true

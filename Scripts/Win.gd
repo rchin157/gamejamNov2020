@@ -11,6 +11,7 @@ onready var btn = get_node("Button")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MultiplayerManager.game_ended(true)
 	animator.frame = 0
 	Music.stopAll()
 	Music.playSFX(7)

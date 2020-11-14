@@ -112,6 +112,7 @@ var setPieces = [spawnset, island1, island2]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.level = self
+	MultiplayerManager.cellsPassed = 0
 	if MultiplayerManager.random_seed != null:
 		rng.seed = MultiplayerManager.random_seed
 	else:
@@ -203,6 +204,7 @@ func newColumn():
 	if isSetPiece:
 		setPieceProgress -= 1
 		cellsPassed += 1
+		MultiplayerManager.cellsPassed+=1
 		if setPieceProgress == 0:
 			isSetPiece = false
 		return
@@ -228,6 +230,7 @@ func newColumn():
 			tileImgs[front - 2][j] = watertile
 			tilemap.set_cell(front - 2,j,watertile) 
 	cellsPassed += 1
+	MultiplayerManager.cellsPassed+=1
 	if cellsPassed % 40 == 0 and rng.randi() % 2 == 0:
 		#print("SETPIECE ADDED")
 		addSetpiece(rng.randi_range(1,2))

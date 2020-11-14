@@ -11,6 +11,7 @@ func _ready():
 	txt.text = MultiplayerManager.endingText[MultiplayerManager.loseCondtion]
 	Music.stopAll()
 	Music.playSFX(6)
+	MultiplayerManager.game_ended(false)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

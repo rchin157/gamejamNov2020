@@ -119,6 +119,14 @@ func action_tick(tooltime,delta):
 	Music.toggleSong(6,true)
 	return .action_tick(tooltime,delta)
 
+func bounce_back(step :float):
+	set_position(Vector2(get_position().x+step,get_position().y))
+	#move_and_slide(Vector2(step,0))
+	if (get_position().x < -50):
+		MultiplayerManager.missP += 1
+		_dispose()
+	pass
+
 func action_finish(rem: bool):
 	print('generic task complete notification')
 #	var drop = MultiplayerManager.itemSpawner.instance();
@@ -129,6 +137,8 @@ func action_finish(rem: bool):
 	drop.set_position(pos)
 	drop.toggleFood()
 	get_parent().add_child(drop)
+	
+	MultiplayerManager.Pded+=1
 	
 	Music.toggleSong(6,false)
 	if(MultiplayerManager.isConnected() and !rem):

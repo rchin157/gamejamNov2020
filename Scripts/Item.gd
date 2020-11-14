@@ -26,6 +26,7 @@ func remoteWaterLog(index, i, j):
 	pass
 
 func setCooked():
+	MultiplayerManager.foods_cooked+=1
 	Music.playSFX(3)
 	cooked = true;
 	animator.set_frame(1)

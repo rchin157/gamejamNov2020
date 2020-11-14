@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Stats.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/SCE-PS3 Rodin LATIN Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Entities/Beta.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/BerryLoaded.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/trees/Treeno.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="return" type="Button" parent="."]
+margin_left = 844.391
+margin_top = 517.367
+margin_right = 1002.39
+margin_bottom = 583.367
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 63.0
+margin_top = 54.0
+margin_right = 955.0
+margin_bottom = 240.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "Look upon my works
+ye mighty"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BigPP" type="RichTextLabel" parent="."]
+margin_left = 430.0
+margin_top = 104.0
+margin_right = 1322.0
+margin_bottom = 497.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 20.4975
+margin_top = 90.082
+margin_right = 60.4975
+margin_bottom = 130.082
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+margin_left = 234.6
+margin_top = 348.541
+margin_right = 274.6
+margin_bottom = 388.541
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+margin_left = 218.011
+margin_top = 165.517
+margin_right = 258.011
+margin_bottom = 205.517
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+
+[node name="Beta" parent="." instance=ExtResource( 3 )]
+position = Vector2( 199, 379 )
+
+[node name="Beta2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 453 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 188, 412 )
+scale = Vector2( 4.0625, 3.375 )
+texture = ExtResource( 5 )
+[connection signal="pressed" from="return" to="." method="_on_return_pressed"]

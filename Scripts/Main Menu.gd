@@ -24,3 +24,8 @@ func _on_start_pressed():
 func _on_info_pressed():
 	get_tree().change_scene("res://Level/Info.tscn")
 	pass # Replace with function body.
+
+
+func _on_stats_pressed():
+	get_tree().change_scene("res://Level/Stats.tscn")
+	pass # Replace with function body.
