@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/AuthStart.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1048.0
+margin_bottom = 614.0
+
+[node name="signin" type="Button" parent="."]
+margin_left = 203.898
+margin_top = 452.817
+margin_right = 456.898
+margin_bottom = 530.817
+text = "sign in"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="signup" type="Button" parent="."]
+margin_left = 581.045
+margin_top = 451.695
+margin_right = 834.045
+margin_bottom = 529.695
+text = "sign up"
+[connection signal="pressed" from="signin" to="." method="_on_signin_pressed"]
+[connection signal="pressed" from="signup" to="." method="_on_signup_pressed"]
