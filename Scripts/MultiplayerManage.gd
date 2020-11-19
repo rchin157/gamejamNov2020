@@ -238,8 +238,8 @@ remote func update_player_pos(i,px: float, py: float):
 	pass
 
 remote func update_object_position(index, px: float, py: float):
-	if level.get_node(index) != null:
-		level.get_node(index).set_position(Vector2(px,py));
+	if in_world[index] != null:
+		in_world[index].set_position(Vector2(px,py));
 
 remote func levelEntityAction(index):
 	if in_world[index] != null:
