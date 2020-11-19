@@ -40,7 +40,11 @@ __meta__ = {
 position = Vector2( 944.35, 584.301 )
 scale = Vector2( 3, 3 )
 frames = ExtResource( 1 )
+<<<<<<< Updated upstream
 frame = 9
+=======
+frame = 29
+>>>>>>> Stashed changes
 playing = true
 
 [node name="start" type="Button" parent="."]
