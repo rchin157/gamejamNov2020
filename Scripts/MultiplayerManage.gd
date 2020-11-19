@@ -246,13 +246,13 @@ remote func levelEntityAction(index):
 		in_world[index].action_finish(true);
 	
 remote func starved():
-	activeplayer.starved()
+	players[0].starved()
 	
 remote func froze():
-	activeplayer.frozen()
+	players[0].frozen()
 	
 remote func leftBehind():
-	activeplayer.fellBehind()
+	players[0].fellBehind()
 
 remote func toggleSound(index, state):
 	if(state):
