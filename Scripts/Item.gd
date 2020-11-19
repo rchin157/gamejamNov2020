@@ -158,9 +158,6 @@ func sendPositionDelta():
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("update_object_position",index,pos.x,pos.y)
 
-func _exit_tree():
-	_dispose();
-
 func bounce_back(step :float):
 	if waterlogger:
 		print("log shoved")

@@ -221,8 +221,8 @@ remote func add_to_lobby(id: String, num: int, color):
 	pass
 
 remote func dispose(index):
-	if level.get_node(index) !=null:
-		level.get_node(index)._dispose();
+	if in_world[index] != null:
+		in_world[index]._dispose();
 
 remote func waterLog(index,i,j ):
 	if in_world[index] !=null:
