@@ -33,7 +33,6 @@ func getTreeFrame():
 		return 7
 
 func _dispose():
-	
 	._dispose()
 
 func action_tick(tooltime,delta):

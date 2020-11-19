@@ -2,20 +2,29 @@ extends KinematicBody2D
 
 enum types {PLAYER,TREE,PUNPUN,ITEM,DEFAULT}
 var type = types.DEFAULT;
+var listIndex = -1;
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	MultiplayerManager.in_world.append(self)
+	#Debugging stuffz
+	MultiplayerManager.addInstance(self)
 	#print(MultiplayerManager.in_world.size())
 	pass # Replace with function body.
 
 func _dispose():
-	MultiplayerManager.in_world.erase(self)
+	MultiplayerManager.removeInstance(self)
 	queue_free();
-	
+
+func printIndex():
+	print("index in world is: "+String(MultiplayerManager.in_world.find(self)))
+
+
+func getType():
+	return "default"
+
 func action_tick(tooltime,delta):
 	return tooltime-delta
 
@@ -30,23 +39,23 @@ func actionStopped():
 	pass
 #Disposes locally and remotely
 func remote_dispose():
-	var index = get_name()
+	var index = MultiplayerManager.getWorldIndex(self)
 	MultiplayerManager.rpc("dispose",index)
 	_dispose()
 
 func action_finish_remote():
-	var index = get_name()
+	print("running remote action finish")
+	var index = MultiplayerManager.getWorldIndex(self)
+	print("index is "+get_name())
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("levelEntityAction",index)
 
 func sendPositionDelta():
-	var index = get_name()
+	var index = MultiplayerManager.getWorldIndex(self)
 	var pos = get_position();
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("update_object_position",index,pos.x,pos.y)
 
-func _exit_tree():
-	_dispose();
 
 func get_pushable():
 	return false

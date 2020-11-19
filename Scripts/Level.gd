@@ -8,6 +8,7 @@ var tiles = []
 var tileImgs = []
 var currentScroll = 0
 
+
 var levelHeight = 12
 var levelWidth = 44
 var cellwidth = 64
@@ -20,6 +21,7 @@ var rng = RandomNumberGenerator.new()
 
 var tree = load("res://Entities/Tree.tscn")
 var pun = load("res://Entities/Beta.tscn")
+var punOdds = 0;
 
 var isSetPiece = false
 var setPieceProgress = 20
@@ -164,25 +166,30 @@ func _ready():
 	print(rng.seed)
 	initNoise()
 	generateInitialTiles()
-	if(MultiplayerManager.is_server):
-		MultiplayerManager.listeningPlayer = get_node("Player2");
-		player = get_node("Player")
-	else:
-		MultiplayerManager.listeningPlayer = get_node("Player");
-		player = get_node("Player2")
-	MultiplayerManager.listeningPlayer.local= false;
-	MultiplayerManager.activeplayer = player
+#	if(MultiplayerManager.is_server):
+#		MultiplayerManager.listeningPlayer = get_node("Player2");
+#		player = get_node("Player")
+#	else:
+#		MultiplayerManager.listeningPlayer = get_node("Player");
+#		player = get_node("Player2")
+#	MultiplayerManager.listeningPlayer.local= false;
+#	MultiplayerManager.activeplayer = player
+#
+#	player.UI = ui
+
+	var playerSpawn = load("res://Entities/Player.tscn")
 	
-	player.UI = ui
+	for i in range(0,MultiplayerManager.colorList.size()):
+		var spawnedP = playerSpawn.instance();
+		MultiplayerManager.players.append(spawnedP)
+		add_child(spawnedP)
+		spawnedP.set_position(Vector2(120,100+100*i))
+		spawnedP.set_modulate(MultiplayerManager.colorList[i])
+		spawnedP.setName(MultiplayerManager.names[i])
 	
-	#AAAAAAAAAA
-	get_node("Player/AnimatedSprite").set_modulate(MultiplayerManager.colorList[0])
-	get_node("Player").setName(MultiplayerManager.names[0])
-	get_node("Player2/AnimatedSprite").set_modulate(MultiplayerManager.colorList[1])
-	get_node("Player2").setName(MultiplayerManager.names[1])
-	
-	if !MultiplayerManager.isConnected():
-		remove_child(MultiplayerManager.listeningPlayer)
+	MultiplayerManager.players[MultiplayerManager.localIndex].local = true;
+	MultiplayerManager.players[MultiplayerManager.localIndex].UI = ui
+	punOdds = MultiplayerManager.players.size()-1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var step = delta / scrollPeriod * cellwidth
@@ -221,7 +228,7 @@ func generateInitialTiles():
 				treeNode.set_position(Vector2((i) * 64 + 32, j * 64))
 				add_child(treeNode)
 				treeNode.animator.frame = 8
-			if tileval == 0 and rng.randi_range(0, 50) == 10:
+			if tileval == 0 and rng.randi_range(0, 30) <= punOdds:
 				var punode = pun.instance()
 				punode.set_position(Vector2(i * 64 + 32, j * 64))
 				add_child(punode)
@@ -262,7 +269,7 @@ func newColumn():
 			var treeNode = tree.instance()
 			treeNode.set_position(Vector2((front) * 64 + 32, j * 64))
 			add_child(treeNode)
-		if tileval == 0 and rng.randi_range(0, 30) == 10:
+		if tileval == 0 and rng.randi_range(0, 30) <= punOdds:
 			var punode = pun.instance()
 			punode.set_position(Vector2((front) * 64 + 32, j * 64 + 32))
 			add_child(punode)
@@ -370,8 +377,10 @@ func tileImgSelect(val):
 			return rng.randi_range(19, 51)
 		
 func snap(scroll):
-	for i in range(MultiplayerManager.in_world.size() - 1, -1, -1):
-		MultiplayerManager.in_world[i].bounce_back(-scroll)
+	for i in range(0, MultiplayerManager.in_world.size()):
+		if MultiplayerManager.in_world[i] != null:
+			MultiplayerManager.in_world[i].bounce_back(-scroll)
+	print(MultiplayerManager.in_world.size())
 		
 func addSetpiece(id):
 	var start = levelWidth - 20
@@ -400,7 +409,7 @@ func renderSetpiece():
 				treeNode.set_position(Vector2((i + 1) * 64 + 32, j * 64))
 				add_child(treeNode)
 				treeNode.animator.frame = 8
-			if tiles[i][j] == 0 and rng.randi_range(0, 30) == 10:
+			if tiles[i][j] == 0 and rng.randi_range(0, 30) <= punOdds:
 				var punode = pun.instance()
 				punode.set_position(Vector2((i + 1) * 64 + 32, j * 64 + 32))
 				add_child(punode)

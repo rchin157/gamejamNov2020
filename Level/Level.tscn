@@ -1,8 +1,7 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Tiles/WaterTiles.png" type="Texture" id=2]
-[ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Tiles/TILESET.png" type="Texture" id=4]
 [ext_resource path="res://UI/Player_HUD.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/Lantern.tscn" type="PackedScene" id=6]
@@ -1559,12 +1558,6 @@ z_index = 3
 anchor_mode = 0
 current = true
 zoom = Vector2( 1.28, 1.28 )
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 174.097, 166.537 )
-
-[node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 176.854, 359.189 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 collision_layer = 64

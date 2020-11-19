@@ -4,13 +4,22 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+
+#Multiplayer stuff
 var peer = null;
-var id; 
+var peerID
+var id;
+var playerCount = 4 
 var connected = false
 var port = 25565;
 var is_server = false;
+var players = []
+var colorList = [];
+var names = []
+var serverID
+var localIndex
+
 var openingMenu;
-var listeningPlayer;
 var activeplayer;
 var in_world = [];
 var itemSpawner
@@ -18,8 +27,7 @@ var level = null;
 var random_seed = 0;
 var loseCondtion = 0
 var endingText = ["One of you starved to death", "One of you froze to death", "One of you got left behind"]
-var colorList = [Color(1,1,1),Color(1,1,1)];
-var names = ["basic","basic"]
+
 
 #BIG PP Variables
 var truegame = false;
@@ -45,21 +53,44 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	itemSpawner = preload("res://Entities/Item.tscn")
 	read_PP_file()
-	print(treeChop)
 	
 func set_id(name: String):
 	id = name
 
+func removeInstance(instance):
+	var index = in_world.find(instance)
+	print("removing world instance at index: "+String(index))
+	in_world[index] = null
 
+func addInstance(instance):
+	for i in range(0,in_world.size()):
+		if in_world[i] == null:
+			#This is for debugging remove when done
+			in_world[i] = instance
+			instance.listIndex = i
+			return
+	in_world.append(instance)
+	if instance.getType() == "item":
+		print("item added")
+		instance.printIndex()
+	#This is for debugging Feel free to remove
 
+func getWorldIndex(instance):
+	return in_world.find(instance)
 
 func createServer(port: int):
 	peer = NetworkedMultiplayerENet.new();
-	peer.create_server(port, 1);
+	peer.create_server(port, playerCount);
+	peerID = []
 	get_tree().network_peer = peer;
 	randomize();
 	random_seed = randi()
 	is_server = true;
+	localIndex = 0;
+	
+	#setting the first player to be lobby host
+	colorList.append(openingMenu.color)
+	names.append(openingMenu.name_input.get_text())
 
 func isConnected():
 	return connected
@@ -72,16 +103,23 @@ func createClient(port: int,Ip: String):
 func _player_connected(gid):
 	# Called on both clients and server when a peer connects. Send my info to it.
 	if(is_server):
-		rpc("add_to_lobby",id,0, colorList[0])
-		rpc("setSeed",random_seed)
-	else:
-		rpc("add_to_lobby",id,1, colorList[1])
-		openingMenu.set_player(id,1,colorList[1]);		
+		serverConnected(gid)
+
+func serverConnected(gid):
+	#peerID.append(gid)
+	connected = true
+	rpc_id(gid,"setSeed",random_seed)
+
+func clientConnected():
+	connected = true
+	print("sending registration")
+	rpc("registerPlayer",openingMenu.name_input.get_text(),0, openingMenu.color)
 
 func _player_disconnected(gid):
 	pass
 
 func _connected_ok():
+	clientConnected()
 	pass # Only called on clients, not server. Will go unused; not useful here.
 
 func _server_disconnected():
@@ -90,24 +128,27 @@ func _server_disconnected():
 func _connected_fail():
 	pass # Could not even connect to server; abort.
 
-remote func cookFood(index):
-	if MultiplayerManager.level.get_node(index) != null : 
-		MultiplayerManager.level.get_node(index).setCooked();
+#run to give the client a number in the arrays
+remote func setLocalIndex(index):
+	localIndex = index
 
-remote func updatePlayerAnimation(state):
-	if listeningPlayer != null:
-		listeningPlayer.changeState(state)
+remote func cookFood(index):
+	if in_world[index] != null : 
+		in_world[index].setCooked();
+
+remote func updatePlayerAnimation(state, index):
+			players[index].changeState(state)
 
 remote func movePunPun(index, position, animation):
-	if MultiplayerManager.level != null:
-		var PunPun = MultiplayerManager.level.get_node(index)
+	if level != null:
+		var PunPun = in_world[index]
 		if PunPun != null:
 			PunPun.animator.set_animation(animation)
 			PunPun.set_position(position)
 
 func game_ended(win: bool):
 	if(win):
-		MultiplayerManager.wins+=1
+		wins+=1
 	else:
 		deaths+=1
 	distance_travelled+=cellsPassed
@@ -153,35 +194,56 @@ func read_PP_file():
 		treeChop = 0
 	pass
 
+remote func registerPlayer(id: String, num: int, color):
+	if is_server:
+		print("adding a player")
+		var sender = get_tree().get_rpc_sender_id()
+	#rpc_id(sender,"add_to_lobby",names[0],0,colorList[0])
+	#for i in range(0,peerID.size()):
+	#	rpc_id(sender,"add_to_lobby",names[i+1],i+1,colorList[i+1])
+		print(names.size())
+		for i in range(0,names.size()):
+			print(names[i])
+			rpc_id(sender,"add_to_lobby",names[i],i,colorList[i])
+		peerID.append(sender)
+		rpc("add_to_lobby",id,peerID.size()-1,color)
+		rpc_id(sender,"setLocalIndex",peerID.size())
+	add_to_lobby(id,0,color)
+	
+
+#Set player is currently rigid, needs to create player instances according to need
 remote func add_to_lobby(id: String, num: int, color):
 	connected = true
-	openingMenu.set_player(id,num,color);
+	colorList.append(color)
+	names.append(id)
+	var index = names.size()-1
+	openingMenu.set_player(id,index,color);
 	pass
 
 remote func dispose(index):
-	if MultiplayerManager.level.get_node(index) !=null:
-		MultiplayerManager.level.get_node(index)._dispose();
+	if level.get_node(index) !=null:
+		level.get_node(index)._dispose();
 
 remote func waterLog(index,i,j ):
-	if MultiplayerManager.level.get_node(index) !=null:
-		MultiplayerManager.level.get_node(index).remoteWaterLog(index, i, j)
+	if in_world[index] !=null:
+		in_world[index].remoteWaterLog(index, i, j)
 
 remote func setSeed(Seed):
+	print("setting seed")
+	serverID = get_tree().get_rpc_sender_id()
 	random_seed = Seed;
 
-remote func update_player_pos(px: float, py: float):
-	if listeningPlayer != null:
-		listeningPlayer.update_position(px,py)
+remote func update_player_pos(i,px: float, py: float):
+	players[i].update_position(px,py)
 	pass
 
 remote func update_object_position(index, px: float, py: float):
-	if MultiplayerManager.level.get_node(index) != null:
-		MultiplayerManager.level.get_node(index).set_position(Vector2(px,py));
+	if level.get_node(index) != null:
+		level.get_node(index).set_position(Vector2(px,py));
 
 remote func levelEntityAction(index):
-	print("you got mail!")
-	if MultiplayerManager.level.get_node(index) != null:
-		MultiplayerManager.level.get_node(index).action_finish(true);
+	if in_world[index] != null:
+		in_world[index].action_finish(true);
 	
 remote func starved():
 	activeplayer.starved()

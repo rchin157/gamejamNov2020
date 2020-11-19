@@ -16,8 +16,8 @@ var state = 3
 func get_pushable():
 	return true
 
-func attemptPush(displace: Vector2, blacklist):
-	.attemptPush(displace, blacklist)
+#func attemptPush(displace: Vector2, blacklist):
+#	.attemptPush(displace, blacklist)
 
 func _draw():
 	draw_circle(Vector2(0,0),shape.get_radius(),tint_color)

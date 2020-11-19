@@ -44,10 +44,10 @@ texture = ExtResource( 4 )
 expand = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 427.39
-margin_top = 24.4966
-margin_right = 1007.39
-margin_bottom = 85.4966
+margin_left = 399.358
+margin_top = 20.4921
+margin_right = 979.358
+margin_bottom = 81.4921
 custom_fonts/normal_font = SubResource( 1 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
@@ -170,6 +170,70 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Player3" type="Control" parent="LobbyScreen"]
+visible = false
+margin_left = 473.513
+margin_top = 154.083
+margin_right = 513.513
+margin_bottom = 194.083
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerSprite" type="Sprite" parent="LobbyScreen/Player3"]
+position = Vector2( 118.232, -2.83087 )
+scale = Vector2( 2.5998, 2.63701 )
+texture = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="LobbyScreen/Player3/PlayerSprite"]
+position = Vector2( 0, -0.425655 )
+z_index = 5
+frames = ExtResource( 5 )
+animation = "walkDown"
+
+[node name="PlayerName" type="RichTextLabel" parent="LobbyScreen/Player3"]
+margin_left = 71.2839
+margin_top = -47.6431
+margin_right = 271.284
+margin_bottom = -7.64314
+custom_fonts/normal_font = SubResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player4" type="Control" parent="LobbyScreen"]
+visible = false
+margin_left = 472.454
+margin_top = 338.429
+margin_right = 512.454
+margin_bottom = 378.429
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerSprite" type="Sprite" parent="LobbyScreen/Player4"]
+position = Vector2( 118.232, -2.83087 )
+scale = Vector2( 2.5998, 2.63701 )
+texture = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="LobbyScreen/Player4/PlayerSprite"]
+position = Vector2( 0, -0.425655 )
+z_index = 5
+frames = ExtResource( 5 )
+animation = "walkDown"
+
+[node name="PlayerName" type="RichTextLabel" parent="LobbyScreen/Player4"]
+margin_left = 71.2839
+margin_top = -47.6431
+margin_right = 271.284
+margin_bottom = -7.64314
+custom_fonts/normal_font = SubResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Player2" type="Control" parent="LobbyScreen"]
 visible = false
 margin_left = 293.545
@@ -206,12 +270,15 @@ __meta__ = {
 
 [node name="Start_Button" type="Button" parent="LobbyScreen"]
 visible = false
-margin_left = 694.691
-margin_top = 374.718
-margin_right = 886.691
-margin_bottom = 410.718
+margin_left = 600.399
+margin_top = 491.259
+margin_right = 792.399
+margin_bottom = 527.259
 custom_fonts/font = SubResource( 6 )
 text = "Begin Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="ConnectScreen/Host_Button" to="." method="_on_Host_Button_pressed"]
 [connection signal="pressed" from="ConnectScreen/Connect_Button" to="." method="_on_Connect_Button_pressed"]
 [connection signal="pressed" from="LobbyScreen/Start_Button" to="." method="_on_Start_Button_pressed"]

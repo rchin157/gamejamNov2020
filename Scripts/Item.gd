@@ -14,6 +14,7 @@ var animator
 
 func _ready():
 	animator = get_node("AnimatedSprite")
+	type = types.ITEM
 	pass # Replace with function body.
 
 func remoteWaterLog(index, i, j):
@@ -22,8 +23,12 @@ func remoteWaterLog(index, i, j):
 	level.tileImgs[i][j] = 67
 	level.tilemap.set_cell(i, j, 67)
 	Music.playSFX(0)
-	MultiplayerManager.level.get_node(index)._dispose()
+	MultiplayerManager.in_world[index]._dispose()
 	pass
+
+
+func getType():
+	return "item"
 
 func setCooked():
 	MultiplayerManager.foods_cooked+=1
@@ -65,6 +70,9 @@ func waterLog(displace, collider):
 	_dispose()
 
 func _process(delta):
+	if get_node("DebugLabel") != null:
+		var index = MultiplayerManager.in_world.find(self)
+		get_node("DebugLabel").set_text(String(index))
 	if food:
 		eatCD-=delta
 		if(eatCD<0):
@@ -74,7 +82,6 @@ func _process(delta):
 		if(foodtime<=0):
 			foodtime = -1
 			remoteCooked()
-
 func action_tick(tooltime,delta):
 	if eatCD <= 0:
 		MultiplayerManager.activeplayer.eatFood(cooked)
@@ -83,7 +90,7 @@ func action_tick(tooltime,delta):
 
 func remoteCooked():
 	setCooked();
-	var index = get_name()
+	var index = MultiplayerManager.getWorldIndex(self)
 	if(MultiplayerManager.isConnected()):
 		MultiplayerManager.rpc("cookFood",index)
 
@@ -128,3 +135,35 @@ func _on_Cooking_area_exited(area):
 		cooking = false
 		Music.toggleSong(4, false)
 	pass # Replace with function body.
+	
+func _dispose():
+	MultiplayerManager.removeInstance(self)
+	queue_free();
+
+func remote_dispose():
+	var index = MultiplayerManager.getWorldIndex(self)
+	MultiplayerManager.rpc("dispose",index)
+	_dispose()
+
+func action_finish_remote():
+	print("running remote action finish")
+	var index = MultiplayerManager.getWorldIndex(self)
+	print("index is "+get_name())
+	if(MultiplayerManager.isConnected()):
+		MultiplayerManager.rpc("levelEntityAction",index)
+
+func sendPositionDelta():
+	var index = MultiplayerManager.getWorldIndex(self)
+	var pos = get_position();
+	if(MultiplayerManager.isConnected()):
+		MultiplayerManager.rpc("update_object_position",index,pos.x,pos.y)
+
+func _exit_tree():
+	_dispose();
+
+func bounce_back(step :float):
+	if waterlogger:
+		print("log shoved")
+	.bounce_back(step)
+
+

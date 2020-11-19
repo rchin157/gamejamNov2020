@@ -8,11 +8,9 @@ var ip_input;
 var name_input;
 var connectScreen;
 var lobbyScreen;
-var playerList = [null,null];
+var playerList = [];
 var port_input
-
-var color = Color(0,0,0);
-
+var color 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.truegame = true
@@ -20,16 +18,18 @@ func _ready():
 	name_input = get_node("ConnectScreen/Name_Input");
 	connectScreen = get_node("ConnectScreen")
 	lobbyScreen = get_node("LobbyScreen");
-	playerList = [get_node("LobbyScreen/Player1"),get_node("LobbyScreen/Player2")];
+	#playerList = [get_node("LobbyScreen/Player1"),get_node("LobbyScreen/Player2")];
 	port_input = get_node("ConnectScreen/Port_Input")
 	MultiplayerManager.openingMenu = self;
-
+	
+	for i in range(1,5):
+		playerList.append(get_node("LobbyScreen/Player"+String(i)))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 func gotoLobby(server: bool):
-	color = get_node("ConnectScreen/Color").get_picker().color
+	print("went to lobby")
 	MultiplayerManager.set_id(name_input.get_text());
 	connectScreen.hide();
 	lobbyScreen.show();
@@ -40,13 +40,11 @@ func gotoLobby(server: bool):
 		set_player(MultiplayerManager.id, 0, color)
 
 func _on_Host_Button_pressed():
-	color = get_node("ConnectScreen/Color").get_picker().color
+	color = get_node("ConnectScreen/Color").color
 	MultiplayerManager.createServer(int(port_input.get_text()))
 	gotoLobby(true);
 	
 func set_player(id: String, num: int, color: Color):
-	MultiplayerManager.colorList[num] = color
-	MultiplayerManager.names[num] = id
 	var select = playerList[num];
 	select.show();
 	select.get_node("PlayerName").set_text(id);
@@ -57,8 +55,6 @@ func set_player(id: String, num: int, color: Color):
 func _on_Connect_Button_pressed():
 	color = get_node("ConnectScreen/Color").get_picker().color
 	MultiplayerManager.createClient(int(port_input.get_text()),ip_input.get_text())
-	MultiplayerManager.names[1] = MultiplayerManager.id
-	MultiplayerManager.colorList[1] = color
 	#Run a check to ensure that the server is valid first
 	gotoLobby(false);
 	

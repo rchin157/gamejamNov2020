@@ -4,7 +4,8 @@ extends "res://Scripts/LevelEntity.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const TOOLTIMEMAX = 3;
+#dropped this for debugging
+const TOOLTIMEMAX = 1;
 var focus = [];
 
 var pfocus = null;
@@ -13,7 +14,7 @@ var pushfocus = [];
 var tooltime = TOOLTIMEMAX;
 var velocity = Vector2.ZERO;
 var speed = 200;
-var local = true;
+var local = false;
 enum directions {UP, DOWN, LEFT, RIGHT}
 var facing = directions.DOWN;
 var interact_collide;
@@ -41,11 +42,11 @@ var warmth = MAXWARMTH
 var dwarm = PASSIVECOOLING
 var warmthState = 8
 
-var nametag
+var givenName
+onready var nametag = get_node("Name")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	nametag = get_node("Name")
 	interact_collide = get_node("Area2D/Interact");
 	animator = get_node("AnimatedSprite")
 	pass # Replace with function body.
@@ -64,7 +65,7 @@ func _process(delta):
 			Music.toggleSong(11,true)
 			move_and_slide(velocity)
 			if(MultiplayerManager.isConnected()):
-				MultiplayerManager.rpc_unreliable("update_player_pos",get_position().x,get_position().y)
+				MultiplayerManager.rpc_unreliable("update_player_pos",MultiplayerManager.localIndex,get_position().x,get_position().y)
 		else:
 			walking = false;
 			Music.toggleSong(11,false)
@@ -78,7 +79,7 @@ func _process(delta):
 					pvelocity = Vector2(velocity.x,0)
 				for push in pushfocus:
 					push.attemptPush(pvelocity,[])
-		#TogglePushing
+		
 		check_pushing()
 		depleteHunger(1*delta)
 		updateWarmth(dwarm*delta)
@@ -107,7 +108,7 @@ func updateAnimation():
 	if newState != animationState:
 		animationState = newState
 		changeState(newState)
-		MultiplayerManager.rpc("updatePlayerAnimation",newState)
+		MultiplayerManager.rpc("updatePlayerAnimation",newState,MultiplayerManager.localIndex)
 	pass
 
 func changeState(state):

@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 MultiplayerManager="*res://Multiplayer/MultiplayerManage.tscn"
 Music="*res://Level/Music.tscn"
+Firebase="*res://Scripts/Firebase.gd"
 
 [rendering]
 

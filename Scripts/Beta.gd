@@ -48,7 +48,7 @@ func _process(delta):
 				facingRight = true
 			move_and_slide(direction)
 			if(MultiplayerManager.isConnected()):
-				var index = get_name()
+				var index = MultiplayerManager.getWorldIndex(self)
 				MultiplayerManager.rpc("movePunPun",index,get_position(),animator.get_animation())
 		walkTimer -= delta
 		if walkTimer <= 0:
@@ -56,7 +56,7 @@ func _process(delta):
 		if walking:
 			move_and_slide(passiveDirection * (speed / 3))
 			if(MultiplayerManager.isConnected()):
-				var index = get_name()
+				var index = MultiplayerManager.getWorldIndex(self)
 				MultiplayerManager.rpc("movePunPun",index,get_position(),animator.get_animation())
 		
 
