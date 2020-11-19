@@ -84,7 +84,7 @@ func _process(delta):
 			remoteCooked()
 func action_tick(tooltime,delta):
 	if eatCD <= 0:
-		MultiplayerManager.activeplayer.eatFood(cooked)
+		MultiplayerManager.players[MultiplayerManager.localIndex].eatFood(cooked)
 		remote_dispose()
 	return(tooltime)
 
