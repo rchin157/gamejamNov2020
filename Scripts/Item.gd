@@ -65,7 +65,7 @@ func waterLog(displace, collider):
 	level.tileImgs[posx][posy] = 67
 	Music.playSFX(0)
 	if(MultiplayerManager.isConnected()):
-		MultiplayerManager.rpc("waterLog",get_name(),posx,posy)
+		MultiplayerManager.rpc("waterLog",MultiplayerManager.getWorldIndex(self),posx,posy)
 	
 	_dispose()
 
